@@ -178,6 +178,7 @@ public class MainView extends javax.swing.JFrame {
 
         mainPane.add(loginPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 390, 140, 40));
 
+        guestBtn.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         guestBtn.setText("<html><u>Acceder como invitado</u></html>");
         guestBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         guestBtn.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -185,8 +186,9 @@ public class MainView extends javax.swing.JFrame {
                 guestBtnMouseClicked(evt);
             }
         });
-        mainPane.add(guestBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 480, 130, -1));
+        mainPane.add(guestBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 480, 140, -1));
 
+        loadHistoryBtn.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         loadHistoryBtn.setText("<html><u>Cargar historial</u></html>");
         loadHistoryBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         loadHistoryBtn.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -194,7 +196,7 @@ public class MainView extends javax.swing.JFrame {
                 loadHistoryBtnMouseClicked(evt);
             }
         });
-        mainPane.add(loadHistoryBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 450, 90, -1));
+        mainPane.add(loadHistoryBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 450, 100, -1));
 
         logoImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/images/calc_logo.png"))); // NOI18N
         logoImage.setText("jLabel9");
