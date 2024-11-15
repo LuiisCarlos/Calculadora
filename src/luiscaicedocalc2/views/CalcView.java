@@ -4,24 +4,32 @@ import luiscaicedocalc2.classes.Operation;
 import luiscaicedocalc2.classes.Session;
 import luiscaicedocalc2.classes.Utilities;
 
-import java.awt.Color;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import java.io.File;
+
+import java.awt.Color;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
 /**
- * @author Luis Carlos
+ * @author Luis Carlos Caicedo Giraldo
  */
 public class CalcView extends javax.swing.JDialog {
     
+    private final Dimension SCREEN_SIZE = Toolkit.getDefaultToolkit().getScreenSize();
     private final MainView parent;
     
     private List<Operation> operations = new ArrayList<>();
-    private String result = null;
+    private String result = "";
     private LogView history;
     private File sessionFile;
     private Session session;
@@ -59,7 +67,7 @@ public class CalcView extends javax.swing.JDialog {
         sessionType = 1;
         initApp();
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -68,406 +76,401 @@ public class CalcView extends javax.swing.JDialog {
         sessionUserLbl = new javax.swing.JLabel();
         sessionCreationDateLbl = new javax.swing.JLabel();
         userTitle = new javax.swing.JLabel();
+        creationDateLbl = new javax.swing.JLabel();
+        usernameLbl = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        jButton6 = new javax.swing.JButton();
-        jButton11 = new javax.swing.JButton();
-        jButton17 = new javax.swing.JButton();
-        jButton12 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton18 = new javax.swing.JButton();
-        jButton13 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton19 = new javax.swing.JButton();
-        jButton14 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton15 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
-        jButton20 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
-        jButton21 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        sumBtn = new javax.swing.JButton();
+        fourBtn = new javax.swing.JButton();
+        nineBtn = new javax.swing.JButton();
+        fiveBtn = new javax.swing.JButton();
+        oneBtn = new javax.swing.JButton();
+        clearBtn = new javax.swing.JButton();
+        divideBtn = new javax.swing.JButton();
+        sixBtn = new javax.swing.JButton();
+        twoButtn = new javax.swing.JButton();
+        sqBtn = new javax.swing.JButton();
+        dotBtn = new javax.swing.JButton();
+        multiplyBtn = new javax.swing.JButton();
+        powBtn = new javax.swing.JButton();
+        eightBtn = new javax.swing.JButton();
+        substractBtn = new javax.swing.JButton();
+        zeroBtn = new javax.swing.JButton();
+        threeBtn = new javax.swing.JButton();
+        equalsBtn = new javax.swing.JButton();
+        reciprocalBtn = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jButton16 = new javax.swing.JButton();
+        sevenBtn = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        loadBtn = new javax.swing.JMenuItem();
+        saveBtn = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem8 = new javax.swing.JMenuItem();
+        logoutBtn = new javax.swing.JMenuItem();
         jSeparator3 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        exitBtn = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem4 = new javax.swing.JMenuItem();
+        showLogsBtn = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
+        helpBtn = new javax.swing.JMenuItem();
+        useCaseBtn = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem7 = new javax.swing.JMenuItem();
+        aboutBtn = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Calculadora");
+        setMinimumSize(new java.awt.Dimension(400, 680));
+        setPreferredSize(new java.awt.Dimension(400, 680));
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel2.setBackground(new java.awt.Color(120, 157, 188));
+        jPanel2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel2.setMinimumSize(new java.awt.Dimension(280, 104));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         sessionUserLbl.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
+        sessionUserLbl.setForeground(new java.awt.Color(255, 255, 255));
         sessionUserLbl.setText("Nombre: ");
+        jPanel2.add(sessionUserLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(33, 42, -1, -1));
 
         sessionCreationDateLbl.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
+        sessionCreationDateLbl.setForeground(new java.awt.Color(255, 255, 255));
         sessionCreationDateLbl.setText("Fecha de creación:");
+        jPanel2.add(sessionCreationDateLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(33, 70, -1, -1));
 
         userTitle.setFont(new java.awt.Font("Reem Kufi", 1, 14)); // NOI18N
+        userTitle.setForeground(new java.awt.Color(255, 255, 255));
         userTitle.setText("USUARIO");
+        jPanel2.add(userTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 8, -1, -1));
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(userTitle))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(42, 42, 42)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(sessionUserLbl)
-                            .addComponent(sessionCreationDateLbl))))
-                .addContainerGap(162, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(12, Short.MAX_VALUE)
-                .addComponent(userTitle)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(sessionUserLbl)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(sessionCreationDateLbl)
-                .addGap(16, 16, 16))
-        );
+        creationDateLbl.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        creationDateLbl.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel2.add(creationDateLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 70, 110, 16));
+
+        usernameLbl.setBackground(new java.awt.Color(255, 255, 255));
+        usernameLbl.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        usernameLbl.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel2.add(usernameLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(97, 40, 150, 16));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel3.setBorder(new javax.swing.border.MatteBorder(null));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton6.setBackground(java.awt.Color.orange);
-        jButton6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton6.setText("+");
-        jButton6.setToolTipText("Operador de suma");
-        jButton6.addMouseListener(new java.awt.event.MouseAdapter() {
+        sumBtn.setBackground(new java.awt.Color(120, 157, 188));
+        sumBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        sumBtn.setText("+");
+        sumBtn.setToolTipText("Operador de suma");
+        sumBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jButton6MouseEntered(evt);
+                sumBtnMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jButton6MouseExited(evt);
+                sumBtnMouseExited(evt);
             }
         });
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        sumBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                sumBtnActionPerformed(evt);
             }
         });
-        jPanel3.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 140, 55, 45));
+        jPanel3.add(sumBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 140, 55, 45));
 
-        jButton11.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton11.setText("4");
-        jButton11.addMouseListener(new java.awt.event.MouseAdapter() {
+        fourBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        fourBtn.setText("4");
+        fourBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jButton11MouseEntered(evt);
+                fourBtnMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jButton11MouseExited(evt);
+                fourBtnMouseExited(evt);
             }
         });
-        jButton11.addActionListener(new java.awt.event.ActionListener() {
+        fourBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton11ActionPerformed(evt);
+                fourBtnActionPerformed(evt);
             }
         });
-        jPanel3.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 55, 56));
+        jPanel3.add(fourBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 55, 56));
 
-        jButton17.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton17.setText("9");
-        jButton17.addMouseListener(new java.awt.event.MouseAdapter() {
+        nineBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        nineBtn.setText("9");
+        nineBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jButton17MouseEntered(evt);
+                nineBtnMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jButton17MouseExited(evt);
+                nineBtnMouseExited(evt);
             }
         });
-        jButton17.addActionListener(new java.awt.event.ActionListener() {
+        nineBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton17ActionPerformed(evt);
+                nineBtnActionPerformed(evt);
             }
         });
-        jPanel3.add(jButton17, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 320, 55, 56));
+        jPanel3.add(nineBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 320, 55, 56));
 
-        jButton12.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton12.setText("5");
-        jButton12.addMouseListener(new java.awt.event.MouseAdapter() {
+        fiveBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        fiveBtn.setText("5");
+        fiveBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jButton12MouseEntered(evt);
+                fiveBtnMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jButton12MouseExited(evt);
+                fiveBtnMouseExited(evt);
             }
         });
-        jButton12.addActionListener(new java.awt.event.ActionListener() {
+        fiveBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton12ActionPerformed(evt);
+                fiveBtnActionPerformed(evt);
             }
         });
-        jPanel3.add(jButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 260, 55, 56));
+        jPanel3.add(fiveBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 260, 55, 56));
 
-        jButton7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton7.setText("1");
-        jButton7.addMouseListener(new java.awt.event.MouseAdapter() {
+        oneBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        oneBtn.setText("1");
+        oneBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jButton7MouseEntered(evt);
+                oneBtnMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jButton7MouseExited(evt);
+                oneBtnMouseExited(evt);
             }
         });
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
+        oneBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+                oneBtnActionPerformed(evt);
             }
         });
-        jPanel3.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 55, 56));
+        jPanel3.add(oneBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 55, 56));
 
-        jButton1.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
-        jButton1.setText("AC");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        clearBtn.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        clearBtn.setText("C");
+        clearBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                clearBtnActionPerformed(evt);
             }
         });
-        jButton1.addKeyListener(new java.awt.event.KeyAdapter() {
+        clearBtn.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jButton1KeyPressed(evt);
+                clearBtnKeyPressed(evt);
             }
         });
-        jPanel3.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 55, 45));
+        jPanel3.add(clearBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 55, 45));
 
-        jButton18.setBackground(java.awt.Color.orange);
-        jButton18.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton18.setText("÷");
-        jButton18.setToolTipText("Operador de división");
-        jButton18.addMouseListener(new java.awt.event.MouseAdapter() {
+        divideBtn.setBackground(new java.awt.Color(120, 157, 188));
+        divideBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        divideBtn.setText("÷");
+        divideBtn.setToolTipText("Operador de división");
+        divideBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jButton18MouseEntered(evt);
+                divideBtnMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jButton18MouseExited(evt);
+                divideBtnMouseExited(evt);
             }
         });
-        jButton18.addActionListener(new java.awt.event.ActionListener() {
+        divideBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton18ActionPerformed(evt);
+                divideBtnActionPerformed(evt);
             }
         });
-        jPanel3.add(jButton18, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 320, 55, 56));
+        jPanel3.add(divideBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 320, 55, 56));
 
-        jButton13.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton13.setText("6");
-        jButton13.addMouseListener(new java.awt.event.MouseAdapter() {
+        sixBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        sixBtn.setText("6");
+        sixBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jButton13MouseEntered(evt);
+                sixBtnMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jButton13MouseExited(evt);
+                sixBtnMouseExited(evt);
             }
         });
-        jButton13.addActionListener(new java.awt.event.ActionListener() {
+        sixBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton13ActionPerformed(evt);
+                sixBtnActionPerformed(evt);
             }
         });
-        jPanel3.add(jButton13, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 260, 55, 56));
+        jPanel3.add(sixBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 260, 55, 56));
 
-        jButton8.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton8.setText("2");
-        jButton8.addMouseListener(new java.awt.event.MouseAdapter() {
+        twoButtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        twoButtn.setText("2");
+        twoButtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jButton8MouseEntered(evt);
+                twoButtnMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jButton8MouseExited(evt);
+                twoButtnMouseExited(evt);
             }
         });
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
+        twoButtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
+                twoButtnActionPerformed(evt);
             }
         });
-        jPanel3.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 200, 55, 56));
+        jPanel3.add(twoButtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 200, 55, 56));
 
-        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton2.setText("√");
-        jButton2.setToolTipText("Raíz cuadrada del número en pantalla");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        sqBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        sqBtn.setText("√");
+        sqBtn.setToolTipText("Raíz cuadrada del número en pantalla");
+        sqBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                sqBtnActionPerformed(evt);
             }
         });
-        jPanel3.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, 55, 45));
+        jPanel3.add(sqBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, 55, 45));
 
-        jButton19.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton19.setText(".");
-        jButton19.addMouseListener(new java.awt.event.MouseAdapter() {
+        dotBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        dotBtn.setText(".");
+        dotBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jButton19MouseEntered(evt);
+                dotBtnMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jButton19MouseExited(evt);
+                dotBtnMouseExited(evt);
             }
         });
-        jButton19.addActionListener(new java.awt.event.ActionListener() {
+        dotBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton19ActionPerformed(evt);
+                dotBtnActionPerformed(evt);
             }
         });
-        jPanel3.add(jButton19, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 390, 55, 56));
+        jPanel3.add(dotBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 390, 55, 56));
 
-        jButton14.setBackground(java.awt.Color.orange);
-        jButton14.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
-        jButton14.setText("X");
-        jButton14.setToolTipText("Operador de multiplicación");
-        jButton14.addMouseListener(new java.awt.event.MouseAdapter() {
+        multiplyBtn.setBackground(new java.awt.Color(120, 157, 188));
+        multiplyBtn.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
+        multiplyBtn.setText("X");
+        multiplyBtn.setToolTipText("Operador de multiplicación");
+        multiplyBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jButton14MouseEntered(evt);
+                multiplyBtnMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jButton14MouseExited(evt);
+                multiplyBtnMouseExited(evt);
             }
         });
-        jButton14.addActionListener(new java.awt.event.ActionListener() {
+        multiplyBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton14ActionPerformed(evt);
+                multiplyBtnActionPerformed(evt);
             }
         });
-        jPanel3.add(jButton14, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 260, 55, 56));
+        jPanel3.add(multiplyBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 260, 55, 56));
 
-        jButton3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton3.setText("x² ");
-        jButton3.setToolTipText("Eleva al cuadrado el número en pantalla");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        powBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        powBtn.setText("x² ");
+        powBtn.setToolTipText("Eleva al cuadrado el número en pantalla");
+        powBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                powBtnActionPerformed(evt);
             }
         });
-        jPanel3.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 140, 55, 45));
+        jPanel3.add(powBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 140, 55, 45));
 
-        jButton15.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton15.setText("8");
-        jButton15.addMouseListener(new java.awt.event.MouseAdapter() {
+        eightBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        eightBtn.setText("8");
+        eightBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jButton15MouseEntered(evt);
+                eightBtnMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jButton15MouseExited(evt);
+                eightBtnMouseExited(evt);
             }
         });
-        jButton15.addActionListener(new java.awt.event.ActionListener() {
+        eightBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton15ActionPerformed(evt);
+                eightBtnActionPerformed(evt);
             }
         });
-        jPanel3.add(jButton15, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 320, 55, 56));
+        jPanel3.add(eightBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 320, 55, 56));
 
-        jButton9.setBackground(java.awt.Color.orange);
-        jButton9.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jButton9.setText("-");
-        jButton9.setToolTipText("Operador de resta");
-        jButton9.addMouseListener(new java.awt.event.MouseAdapter() {
+        substractBtn.setBackground(new java.awt.Color(120, 157, 188));
+        substractBtn.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        substractBtn.setText("-");
+        substractBtn.setToolTipText("Operador de resta");
+        substractBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jButton9MouseEntered(evt);
+                substractBtnMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jButton9MouseExited(evt);
+                substractBtnMouseExited(evt);
             }
         });
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
+        substractBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
+                substractBtnActionPerformed(evt);
             }
         });
-        jPanel3.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 200, 55, 56));
+        jPanel3.add(substractBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 200, 55, 56));
 
-        jButton20.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton20.setText("0");
-        jButton20.addMouseListener(new java.awt.event.MouseAdapter() {
+        zeroBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        zeroBtn.setText("0");
+        zeroBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jButton20MouseEntered(evt);
+                zeroBtnMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jButton20MouseExited(evt);
+                zeroBtnMouseExited(evt);
             }
         });
-        jButton20.addActionListener(new java.awt.event.ActionListener() {
+        zeroBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton20ActionPerformed(evt);
+                zeroBtnActionPerformed(evt);
             }
         });
-        jPanel3.add(jButton20, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 390, 55, 56));
+        jPanel3.add(zeroBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 390, 55, 56));
 
-        jButton10.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton10.setText("3");
-        jButton10.addMouseListener(new java.awt.event.MouseAdapter() {
+        threeBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        threeBtn.setText("3");
+        threeBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jButton10MouseEntered(evt);
+                threeBtnMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jButton10MouseExited(evt);
+                threeBtnMouseExited(evt);
             }
         });
-        jButton10.addActionListener(new java.awt.event.ActionListener() {
+        threeBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton10ActionPerformed(evt);
+                threeBtnActionPerformed(evt);
             }
         });
-        jPanel3.add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 200, 55, 56));
+        jPanel3.add(threeBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 200, 55, 56));
 
-        jButton21.setBackground(java.awt.Color.orange);
-        jButton21.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton21.setText("=");
-        jButton21.setToolTipText("Calcula la operación en pantalla");
-        jButton21.addMouseListener(new java.awt.event.MouseAdapter() {
+        equalsBtn.setBackground(new java.awt.Color(120, 157, 188));
+        equalsBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        equalsBtn.setText("=");
+        equalsBtn.setToolTipText("Calcula la operación en pantalla");
+        equalsBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jButton21MouseEntered(evt);
+                equalsBtnMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jButton21MouseExited(evt);
+                equalsBtnMouseExited(evt);
             }
         });
-        jButton21.addActionListener(new java.awt.event.ActionListener() {
+        equalsBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton21ActionPerformed(evt);
+                equalsBtnActionPerformed(evt);
             }
         });
-        jPanel3.add(jButton21, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 400, 128, 42));
+        jPanel3.add(equalsBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 400, 128, 42));
 
-        jButton4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton4.setText("1/X");
-        jButton4.setToolTipText("");
-        jButton4.addMouseListener(new java.awt.event.MouseAdapter() {
+        reciprocalBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        reciprocalBtn.setText("1/X");
+        reciprocalBtn.setToolTipText("");
+        reciprocalBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jButton4MouseEntered(evt);
+                reciprocalBtnMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jButton4MouseExited(evt);
+                reciprocalBtnMouseExited(evt);
             }
         });
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        reciprocalBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                reciprocalBtnActionPerformed(evt);
             }
         });
-        jPanel3.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 140, 60, 45));
+        jPanel3.add(reciprocalBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 140, 60, 45));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -488,92 +491,104 @@ public class CalcView extends javax.swing.JDialog {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
         );
 
-        jPanel3.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 300, -1));
+        jPanel3.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 300, 90));
 
-        jButton16.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton16.setText("7");
-        jButton16.addMouseListener(new java.awt.event.MouseAdapter() {
+        sevenBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        sevenBtn.setText("7");
+        sevenBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jButton16MouseEntered(evt);
+                sevenBtnMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jButton16MouseExited(evt);
+                sevenBtnMouseExited(evt);
             }
         });
-        jButton16.addActionListener(new java.awt.event.ActionListener() {
+        sevenBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton16ActionPerformed(evt);
+                sevenBtnActionPerformed(evt);
             }
         });
-        jPanel3.add(jButton16, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, 55, 56));
+        jPanel3.add(sevenBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, 55, 56));
 
         jMenu1.setText("Archivo");
 
-        jMenuItem1.setText("Cargar historial");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        loadBtn.setText("Cargar historial");
+        loadBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                loadBtnActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        jMenu1.add(loadBtn);
 
-        jMenuItem2.setText("Guardar historial");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        saveBtn.setText("Guardar historial");
+        saveBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                saveBtnActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem2);
+        jMenu1.add(saveBtn);
         jMenu1.add(jSeparator1);
 
-        jMenuItem8.setText("Cerrar sesión");
-        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+        logoutBtn.setText("Cerrar sesión");
+        logoutBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem8ActionPerformed(evt);
+                logoutBtnActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem8);
+        jMenu1.add(logoutBtn);
         jMenu1.add(jSeparator3);
 
-        jMenuItem3.setText("Salir");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        exitBtn.setText("Salir");
+        exitBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                exitBtnActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem3);
+        jMenu1.add(exitBtn);
 
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Vista");
 
-        jMenuItem4.setText("Mostrar historial");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+        showLogsBtn.setText("Mostrar historial");
+        showLogsBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
+                showLogsBtnActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem4);
+        jMenu2.add(showLogsBtn);
 
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("Ayuda");
 
-        jMenuItem5.setText("Ayuda");
-        jMenu3.add(jMenuItem5);
+        helpBtn.setText("Ayuda");
+        helpBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                helpBtnActionPerformed(evt);
+            }
+        });
+        jMenu3.add(helpBtn);
 
-        jMenuItem6.setText("Casos de uso");
-        jMenu3.add(jMenuItem6);
+        useCaseBtn.setText("Casos de uso");
+        useCaseBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                useCaseBtnActionPerformed(evt);
+            }
+        });
+        jMenu3.add(useCaseBtn);
         jMenu3.add(jSeparator2);
 
-        jMenuItem7.setText("Acerca de");
-        jMenu3.add(jMenuItem7);
+        aboutBtn.setText("Acerca de");
+        aboutBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aboutBtnActionPerformed(evt);
+            }
+        });
+        jMenu3.add(aboutBtn);
 
         jMenuBar1.add(jMenu3);
 
@@ -583,23 +598,23 @@ public class CalcView extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(173, Short.MAX_VALUE)
+                .addGap(37, 43, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(158, 158, 158))
+                .addContainerGap(38, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(18, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 481, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         pack();
@@ -607,9 +622,11 @@ public class CalcView extends javax.swing.JDialog {
 
     // <editor-fold defaultstate="collapsed" desc="Custom code">  
     private void initApp() {
+        this.setLocation(SCREEN_SIZE.width / 2 - this.getSize().width /2, SCREEN_SIZE.height / 2 - this.getSize().height /2);
         this.history = new LogView(parent, false);
         setTheme();
         setSession();
+        addDefaultCloseOperation();
     }
     
     private void setSession() {
@@ -619,15 +636,26 @@ public class CalcView extends javax.swing.JDialog {
                 initTable();
             }
             
-            this.sessionUserLbl.setText("Nombre   " +  this.session.getUsername());
-            this.sessionCreationDateLbl.setText("Fecha de creación   " +  Utilities.formatDateToEu(this.session.getCreationDate()));
+            this.usernameLbl.setText(this.session.getUsername());
+            this.creationDateLbl.setText(Utilities.formatDateToEu(this.session.getCreationDate()));
             this.sessionCreationDateLbl.setVisible(true);
+            this.creationDateLbl.setVisible(true);
+            this.showLogsBtn.setEnabled(true);
+            this.saveBtn.setEnabled(true);
+            this.logoutBtn.setVisible(true);
+            this.jSeparator1.setVisible(true);
         } else {
-            this.sessionUserLbl.setText("Nombre   " + "invitado");
+            this.usernameLbl.setText("invitado");
+            this.creationDateLbl.setVisible(false);
+            this.showLogsBtn.setEnabled(false);
             this.sessionCreationDateLbl.setVisible(false);
+            this.saveBtn.setEnabled(false);
+            this.logoutBtn.setVisible(false);
+            this.jSeparator1.setVisible(false);
+            
         }
     }
-    
+
     private void updateTable() {
         DefaultTableModel currentModel = (DefaultTableModel) history.Table.getModel();
         history.Table.setModel(Utilities.updateTable(currentModel, operations));
@@ -638,22 +666,40 @@ public class CalcView extends javax.swing.JDialog {
     }
     
     private void confirmExit() {
-        int option =  JOptionPane.showConfirmDialog(this,"Are you sure you want to leave?", "Confirm exit", JOptionPane.YES_NO_OPTION);
-        parent.setVisible(true);
-        if (option == JOptionPane.YES_OPTION) {
-            dispose();
+        if (!operations.isEmpty()) {
+            int option = JOptionPane.showConfirmDialog(null,
+                "¿Desea guardar la sesión?", "No ha guardado la sesión actual", JOptionPane.YES_NO_OPTION);
+
+            if (option == JOptionPane.OK_OPTION) saveSession(); 
         }
+        closeLogView();
+    }
+
+    private void addDefaultCloseOperation() {
+        addWindowListener( new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                confirmExit();
+            }
+        });
+    }
+    
+    private void closeLogView() {
+        history.setVisible(false);
+        this.showLogsBtn.setText("Mostrar historial");
     }
     
     private void saveSession() {
-        session.setOperations(operations);
-        
-        JFileChooser fc = new JFileChooser();
-        fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        int option = fc.showSaveDialog(parent);
-        if (option == JFileChooser.APPROVE_OPTION) {
-            Utilities.createSessionFile(session, fc.getSelectedFile());
+        if (sessionType == 1) {
+            if (!operations.isEmpty()) {
+                session.setOperations(operations);
+            }  
         }
+            
+        JFileChooser fc = new JFileChooser();
+        fc.setSelectedFile( new File(session.getUsername() + "-" + Utilities.formatDateToEu(session.getCreationDate()) + ".txt")  );
+        int option = fc.showSaveDialog(parent);
+        if (option == JFileChooser.APPROVE_OPTION) Utilities.createSessionFile(session, fc.getSelectedFile());
     }
     
     private void loadSession() {
@@ -669,37 +715,43 @@ public class CalcView extends javax.swing.JDialog {
             setSession();
         }
     }
-    
+      
     private void setTheme() {
         this.getContentPane().setBackground(Color.WHITE);
-        this.jButton1.setBackground(Color.WHITE);
-        this.jButton2.setBackground(Color.WHITE);
-        this.jButton3.setBackground(Color.WHITE);
-        this.jButton4.setBackground(Color.WHITE);
-        this.jButton6.setBackground(Color.ORANGE);
-        this.jButton7.setBackground(Color.WHITE);
-        this.jButton8.setBackground(Color.WHITE);
-        this.jButton10.setBackground(Color.WHITE);
-        this.jButton11.setBackground(Color.WHITE);
-        this.jButton12.setBackground(Color.WHITE);
-        this.jButton13.setBackground(Color.WHITE);
-        this.jButton15.setBackground(Color.WHITE);
-        this.jButton16.setBackground(Color.WHITE);
-        this.jButton17.setBackground(Color.WHITE);
-        this.jButton19.setBackground(Color.WHITE);
-        this.jButton20.setBackground(Color.WHITE);
+        this.clearBtn.setBackground(Color.WHITE);
+        this.sqBtn.setBackground(Color.WHITE);
+        this.powBtn.setBackground(Color.WHITE);
+        this.reciprocalBtn.setBackground(Color.WHITE);
+        this.dotBtn.setBackground(Color.WHITE);
+        
+        this.zeroBtn.setBackground(Color.WHITE);
+        this.oneBtn.setBackground(Color.WHITE);
+        this.twoButtn.setBackground(Color.WHITE);
+        this.threeBtn.setBackground(Color.WHITE);
+        this.fourBtn.setBackground(Color.WHITE);
+        this.fiveBtn.setBackground(Color.WHITE);
+        this.sixBtn.setBackground(Color.WHITE);
+        this.sevenBtn.setBackground(Color.WHITE);
+        this.eightBtn.setBackground(Color.WHITE);
+        this.nineBtn.setBackground(Color.WHITE);
+               
+        this.sumBtn.setBackground(new Color(120, 157, 188));
+        this.substractBtn.setBackground(new Color(120, 157, 188));
+        this.divideBtn.setBackground(new Color(120, 157, 188));
+        this.multiplyBtn.setBackground(new Color(120, 157, 188));
+        this.equalsBtn.setBackground(new Color(120, 157, 188));
     }
     // </editor-fold> 
     
-    private void jButton9MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton9MouseEntered
-        this.jButton9.setBackground(new Color(170, 74, 0));
-    }//GEN-LAST:event_jButton9MouseEntered
+    private void substractBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_substractBtnMouseEntered
+        this.substractBtn.setBackground(this.substractBtn.getBackground().darker());
+    }//GEN-LAST:event_substractBtnMouseEntered
 
-    private void jButton9MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton9MouseExited
-        this.jButton9.setBackground(Color.ORANGE);
-    }//GEN-LAST:event_jButton9MouseExited
+    private void substractBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_substractBtnMouseExited
+        this.substractBtn.setBackground(new Color(120, 157, 188));
+    }//GEN-LAST:event_substractBtnMouseExited
 
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+    private void substractBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_substractBtnActionPerformed
         // TODO add your handling code here:
         String aux = this.jLabel1.getText();
         if (!aux.contains(" ")) {
@@ -708,18 +760,17 @@ public class CalcView extends javax.swing.JDialog {
                 this.jLabel1.setText(aux);
             }
         }
-    }//GEN-LAST:event_jButton9ActionPerformed
+    }//GEN-LAST:event_substractBtnActionPerformed
 
-    private void jButton20MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton20MouseEntered
-        this.jButton20.setBackground(new Color(140, 140, 140));
-    }//GEN-LAST:event_jButton20MouseEntered
+    private void zeroBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_zeroBtnMouseEntered
+        this.zeroBtn.setBackground(new Color(140, 140, 140));
+    }//GEN-LAST:event_zeroBtnMouseEntered
 
-    private void jButton20MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton20MouseExited
-        this.jButton20.setBackground(Color.WHITE);
-    }//GEN-LAST:event_jButton20MouseExited
+    private void zeroBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_zeroBtnMouseExited
+        this.zeroBtn.setBackground(Color.WHITE);
+    }//GEN-LAST:event_zeroBtnMouseExited
 
-    private void jButton20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton20ActionPerformed
-        // TODO add your handling code here:
+    private void zeroBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zeroBtnActionPerformed
         String aux = this.jLabel1.getText();
         if (aux.length() -1 == 0 && aux.charAt(0) == '0') {
             this.jLabel1.setText("0");
@@ -727,17 +778,17 @@ public class CalcView extends javax.swing.JDialog {
             aux += 0;
             this.jLabel1.setText(aux);
         }
-    }//GEN-LAST:event_jButton20ActionPerformed
+    }//GEN-LAST:event_zeroBtnActionPerformed
 
-    private void jButton10MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton10MouseEntered
-        this.jButton10.setBackground(new Color(140, 140, 140));
-    }//GEN-LAST:event_jButton10MouseEntered
+    private void threeBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_threeBtnMouseEntered
+        this.threeBtn.setBackground(new Color(140, 140, 140));
+    }//GEN-LAST:event_threeBtnMouseEntered
 
-    private void jButton10MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton10MouseExited
-        this.jButton10.setBackground(Color.WHITE);
-    }//GEN-LAST:event_jButton10MouseExited
+    private void threeBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_threeBtnMouseExited
+        this.threeBtn.setBackground(Color.WHITE);
+    }//GEN-LAST:event_threeBtnMouseExited
 
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+    private void threeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_threeBtnActionPerformed
         // TODO add your handling code here:
         String aux = this.jLabel1.getText();
         if (aux.length() - 1 == 0 && aux.charAt(0) == '0') {
@@ -746,59 +797,48 @@ public class CalcView extends javax.swing.JDialog {
             aux += 3;
             this.jLabel1.setText(aux);
         }
-    }//GEN-LAST:event_jButton10ActionPerformed
+    }//GEN-LAST:event_threeBtnActionPerformed
 
-    private void jButton21MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton21MouseEntered
-        // TODO add your handling code here:
-        this.jButton21.setBackground(new Color(170, 74, 0));
-    }//GEN-LAST:event_jButton21MouseEntered
+    private void equalsBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_equalsBtnMouseEntered
+        this.equalsBtn.setBackground(this.equalsBtn.getBackground().darker());
+    }//GEN-LAST:event_equalsBtnMouseEntered
 
-    private void jButton21MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton21MouseExited
-        this.jButton21.setBackground(Color.ORANGE);
-    }//GEN-LAST:event_jButton21MouseExited
+    private void equalsBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_equalsBtnMouseExited
+        this.equalsBtn.setBackground(new Color(120, 157, 188));
+    }//GEN-LAST:event_equalsBtnMouseExited
 
-    private void jButton21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton21ActionPerformed
-        String[] fields;
+    private void equalsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_equalsBtnActionPerformed
         String screen = this.jLabel1.getText();
-        Operation operation = new Operation();
-        
+        Operation operation;
+        String[] fields;
 
-        if (screen.contains(" ")) {
+        if (screen.contains(" ") && (screen.contains("+") ||
+                screen.contains("-") || screen.contains("÷") || screen.contains("x")
+                )) {
             fields = screen.split(" ");
-            operation.x = fields[0];
-            operation.operator = fields[1];
-            operation.y = fields[2];
+            operation = new Operation(fields[0], fields[1], fields[2]);
             this.result = operation.getResult();
-            if (result == null) {
+            
+            if (this.result == null) {
                 JOptionPane.showMessageDialog(null, "No es posible dividir entre 0", "ERROR", JOptionPane.ERROR_MESSAGE);
             } else {
                 this.jLabel1.setText(result);
             }
-        } else {
-            operation.x = this.result;
-            this.result = operation.getResult();
-            if (result == null) {
-                JOptionPane.showMessageDialog(null, "Ha ocurrido un error", "ERROR", JOptionPane.ERROR_MESSAGE);
-            } else {
-                this.jLabel1.setText(result);
-            }
-        }
-        
-        operations.add(operation);
-        updateTable();
-        System.out.println(operations);
-    }//GEN-LAST:event_jButton21ActionPerformed
+            
+            operations.add(operation);
+            updateTable();
+        }   
+    }//GEN-LAST:event_equalsBtnActionPerformed
 
-    private void jButton11MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton11MouseEntered
-        this.jButton11.setBackground(new Color(140, 140, 140));
-    }//GEN-LAST:event_jButton11MouseEntered
+    private void fourBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fourBtnMouseEntered
+        this.fourBtn.setBackground(new Color(140, 140, 140));
+    }//GEN-LAST:event_fourBtnMouseEntered
 
-    private void jButton11MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton11MouseExited
-        this.jButton11.setBackground(Color.WHITE);
-    }//GEN-LAST:event_jButton11MouseExited
+    private void fourBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fourBtnMouseExited
+        this.fourBtn.setBackground(Color.WHITE);
+    }//GEN-LAST:event_fourBtnMouseExited
 
-    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-        // TODO add your handling code here:
+    private void fourBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fourBtnActionPerformed
         String aux = this.jLabel1.getText();
         if (aux.length() -1 == 0 && aux.charAt(0) == '0') {
             this.jLabel1.setText("4");
@@ -806,17 +846,17 @@ public class CalcView extends javax.swing.JDialog {
             aux += 4;
             this.jLabel1.setText(aux);
         }
-    }//GEN-LAST:event_jButton11ActionPerformed
+    }//GEN-LAST:event_fourBtnActionPerformed
 
-    private void jButton12MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton12MouseEntered
-        this.jButton12.setBackground(new Color(140, 140, 140));
-    }//GEN-LAST:event_jButton12MouseEntered
+    private void fiveBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fiveBtnMouseEntered
+        this.fiveBtn.setBackground(new Color(140, 140, 140));
+    }//GEN-LAST:event_fiveBtnMouseEntered
 
-    private void jButton12MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton12MouseExited
-        this.jButton12.setBackground(Color.WHITE);
-    }//GEN-LAST:event_jButton12MouseExited
+    private void fiveBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fiveBtnMouseExited
+        this.fiveBtn.setBackground(Color.WHITE);
+    }//GEN-LAST:event_fiveBtnMouseExited
 
-    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
+    private void fiveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fiveBtnActionPerformed
         // TODO add your handling code here:
         String aux = this.jLabel1.getText();
         if (aux.length() -1 == 0 && aux.charAt(0) == '0') {
@@ -825,15 +865,14 @@ public class CalcView extends javax.swing.JDialog {
             aux += 5;
             this.jLabel1.setText(aux);
         }
-    }//GEN-LAST:event_jButton12ActionPerformed
+    }//GEN-LAST:event_fiveBtnActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+    private void clearBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearBtnActionPerformed
         this.result = null;
         this.jLabel1.setText("0");
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_clearBtnActionPerformed
 
-    private void jButton1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton1KeyPressed
+    private void clearBtnKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_clearBtnKeyPressed
         String screen = this.jLabel1.getText();
         Operation operation;
         
@@ -977,17 +1016,17 @@ public class CalcView extends javax.swing.JDialog {
                 }
                 break;
             }
-    }//GEN-LAST:event_jButton1KeyPressed
+    }//GEN-LAST:event_clearBtnKeyPressed
 
-    private void jButton13MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton13MouseEntered
-        this.jButton13.setBackground(new Color(140, 140, 140));
-    }//GEN-LAST:event_jButton13MouseEntered
+    private void sixBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sixBtnMouseEntered
+        this.sixBtn.setBackground(new Color(140, 140, 140));
+    }//GEN-LAST:event_sixBtnMouseEntered
 
-    private void jButton13MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton13MouseExited
-        this.jButton13.setBackground(Color.WHITE);
-    }//GEN-LAST:event_jButton13MouseExited
+    private void sixBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sixBtnMouseExited
+        this.sixBtn.setBackground(Color.WHITE);
+    }//GEN-LAST:event_sixBtnMouseExited
 
-    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+    private void sixBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sixBtnActionPerformed
         // TODO add your handling code here:
         String aux = this.jLabel1.getText();
         if (aux.length() -1 == 0 && aux.charAt(0) == '0') {
@@ -996,9 +1035,9 @@ public class CalcView extends javax.swing.JDialog {
             aux += 6;
             this.jLabel1.setText(aux);
         }
-    }//GEN-LAST:event_jButton13ActionPerformed
+    }//GEN-LAST:event_sixBtnActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void sqBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sqBtnActionPerformed
         Operation operation = new Operation();
         String aux = this.jLabel1.getText();
         if (!aux.contains(" ")) {
@@ -1013,18 +1052,17 @@ public class CalcView extends javax.swing.JDialog {
         
         operations.add(operation);
         updateTable();
-        System.out.println(operations);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_sqBtnActionPerformed
 
-    private void jButton14MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton14MouseEntered
-        this.jButton14.setBackground(new Color(170, 74, 0));
-    }//GEN-LAST:event_jButton14MouseEntered
+    private void multiplyBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_multiplyBtnMouseEntered
+        this.multiplyBtn.setBackground(this.multiplyBtn.getBackground().darker());
+    }//GEN-LAST:event_multiplyBtnMouseEntered
 
-    private void jButton14MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton14MouseExited
-        this.jButton14.setBackground(Color.ORANGE);
-    }//GEN-LAST:event_jButton14MouseExited
+    private void multiplyBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_multiplyBtnMouseExited
+        this.multiplyBtn.setBackground(new Color(120, 157, 188));
+    }//GEN-LAST:event_multiplyBtnMouseExited
 
-    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
+    private void multiplyBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_multiplyBtnActionPerformed
         // TODO add your handling code here:
         String aux = this.jLabel1.getText();
         if (!aux.contains(" ")) {
@@ -1033,9 +1071,9 @@ public class CalcView extends javax.swing.JDialog {
                 this.jLabel1.setText(aux);
             }
         }
-    }//GEN-LAST:event_jButton14ActionPerformed
+    }//GEN-LAST:event_multiplyBtnActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void powBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_powBtnActionPerformed
         Operation operation = new Operation();
         String aux = this.jLabel1.getText();
         if (!aux.contains(" ")) {
@@ -1051,17 +1089,17 @@ public class CalcView extends javax.swing.JDialog {
         operations.add(operation);
         updateTable();
         System.out.println(operations);
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_powBtnActionPerformed
 
-    private void jButton15MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton15MouseEntered
-        this.jButton15.setBackground(new Color(140, 140, 140));
-    }//GEN-LAST:event_jButton15MouseEntered
+    private void eightBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eightBtnMouseEntered
+        this.eightBtn.setBackground(new Color(140, 140, 140));
+    }//GEN-LAST:event_eightBtnMouseEntered
 
-    private void jButton15MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton15MouseExited
-        this.jButton15.setBackground(Color.WHITE);
-    }//GEN-LAST:event_jButton15MouseExited
+    private void eightBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eightBtnMouseExited
+        this.eightBtn.setBackground(Color.WHITE);
+    }//GEN-LAST:event_eightBtnMouseExited
 
-    private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
+    private void eightBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eightBtnActionPerformed
         // TODO add your handling code here:
         String aux = this.jLabel1.getText();
         if (aux.length() -1 == 0 && aux.charAt(0) == '0') {
@@ -1070,24 +1108,23 @@ public class CalcView extends javax.swing.JDialog {
             aux += 8;
             this.jLabel1.setText(aux);
         }
-    }//GEN-LAST:event_jButton15ActionPerformed
+    }//GEN-LAST:event_eightBtnActionPerformed
 
-    private void jButton4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseEntered
-        this.jButton4.setBackground(new Color(140, 140, 140));
-    }//GEN-LAST:event_jButton4MouseEntered
+    private void reciprocalBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reciprocalBtnMouseEntered
+        this.reciprocalBtn.setBackground(new Color(140, 140, 140));
+    }//GEN-LAST:event_reciprocalBtnMouseEntered
 
-    private void jButton4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseExited
-        this.jButton4.setBackground(Color.WHITE);
-    }//GEN-LAST:event_jButton4MouseExited
+    private void reciprocalBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reciprocalBtnMouseExited
+        this.reciprocalBtn.setBackground(Color.WHITE);
+    }//GEN-LAST:event_reciprocalBtnMouseExited
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void reciprocalBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reciprocalBtnActionPerformed
         Operation operation = new Operation();
         String aux = this.jLabel1.getText();
         if (!aux.contains(" ")) {
             if (aux.length() > 0 && aux.charAt(aux.length() - 1) != ' ') {
                 operation.x = aux;
                 operation.operator = "/";
-                operation.y = null;
                 this.result = operation.getResult();
                 if (this.result == null) {
                     this.jLabel1.setText("0");
@@ -1100,17 +1137,17 @@ public class CalcView extends javax.swing.JDialog {
         operations.add(operation);
         updateTable();
         System.out.println(operations);
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_reciprocalBtnActionPerformed
 
-    private void jButton16MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton16MouseEntered
-        this.jButton16.setBackground(new Color(140, 140, 140));
-    }//GEN-LAST:event_jButton16MouseEntered
+    private void sevenBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sevenBtnMouseEntered
+        this.sevenBtn.setBackground(new Color(140, 140, 140));
+    }//GEN-LAST:event_sevenBtnMouseEntered
 
-    private void jButton16MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton16MouseExited
-        this.jButton16.setBackground(Color.WHITE);
-    }//GEN-LAST:event_jButton16MouseExited
+    private void sevenBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sevenBtnMouseExited
+        this.sevenBtn.setBackground(Color.WHITE);
+    }//GEN-LAST:event_sevenBtnMouseExited
 
-    private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
+    private void sevenBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sevenBtnActionPerformed
         // TODO add your handling code here:
         String aux = this.jLabel1.getText();
         if (aux.length() -1 == 0 && aux.charAt(0) == '0') {
@@ -1119,17 +1156,17 @@ public class CalcView extends javax.swing.JDialog {
             aux += 7;
             this.jLabel1.setText(aux);
         }
-    }//GEN-LAST:event_jButton16ActionPerformed
+    }//GEN-LAST:event_sevenBtnActionPerformed
 
-    private void jButton6MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseEntered
-        this.jButton6.setBackground(new Color(170, 74, 0));
-    }//GEN-LAST:event_jButton6MouseEntered
+    private void sumBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sumBtnMouseEntered
+        this.sumBtn.setBackground(this.sumBtn.getBackground().darker());
+    }//GEN-LAST:event_sumBtnMouseEntered
 
-    private void jButton6MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseExited
-        this.jButton6.setBackground(Color.ORANGE);
-    }//GEN-LAST:event_jButton6MouseExited
+    private void sumBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sumBtnMouseExited
+        this.sumBtn.setBackground(new Color(120, 157, 188));
+    }//GEN-LAST:event_sumBtnMouseExited
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void sumBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sumBtnActionPerformed
         // TODO add your handling code here:
         String aux = this.jLabel1.getText();
         if (!aux.contains(" ")) {
@@ -1138,17 +1175,17 @@ public class CalcView extends javax.swing.JDialog {
                 this.jLabel1.setText(aux);
             }
         }
-    }//GEN-LAST:event_jButton6ActionPerformed
+    }//GEN-LAST:event_sumBtnActionPerformed
 
-    private void jButton17MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton17MouseEntered
-        this.jButton17.setBackground(new Color(140, 140, 140));
-    }//GEN-LAST:event_jButton17MouseEntered
+    private void nineBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nineBtnMouseEntered
+        this.nineBtn.setBackground(new Color(140, 140, 140));
+    }//GEN-LAST:event_nineBtnMouseEntered
 
-    private void jButton17MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton17MouseExited
-        this.jButton17.setBackground(Color.WHITE);
-    }//GEN-LAST:event_jButton17MouseExited
+    private void nineBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nineBtnMouseExited
+        this.nineBtn.setBackground(Color.WHITE);
+    }//GEN-LAST:event_nineBtnMouseExited
 
-    private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed
+    private void nineBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nineBtnActionPerformed
         // TODO add your handling code here:
         String aux = this.jLabel1.getText();
         if (aux.length() -1 == 0 && aux.charAt(0) == '0') {
@@ -1157,17 +1194,17 @@ public class CalcView extends javax.swing.JDialog {
             aux += 9;
             this.jLabel1.setText(aux);
         }
-    }//GEN-LAST:event_jButton17ActionPerformed
+    }//GEN-LAST:event_nineBtnActionPerformed
 
-    private void jButton7MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton7MouseEntered
-        this.jButton7.setBackground(new Color(140, 140, 140));
-    }//GEN-LAST:event_jButton7MouseEntered
+    private void oneBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_oneBtnMouseEntered
+        this.oneBtn.setBackground(new Color(140, 140, 140));
+    }//GEN-LAST:event_oneBtnMouseEntered
 
-    private void jButton7MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton7MouseExited
-        this.jButton7.setBackground(Color.WHITE);
-    }//GEN-LAST:event_jButton7MouseExited
+    private void oneBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_oneBtnMouseExited
+        this.oneBtn.setBackground(Color.WHITE);
+    }//GEN-LAST:event_oneBtnMouseExited
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+    private void oneBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_oneBtnActionPerformed
         // TODO add your handling code here:
         String aux = this.jLabel1.getText();
         if (aux.length() -1 == 0 && aux.charAt(0) == '0') {
@@ -1176,17 +1213,17 @@ public class CalcView extends javax.swing.JDialog {
             aux += 1;
             this.jLabel1.setText(aux);
         }
-    }//GEN-LAST:event_jButton7ActionPerformed
+    }//GEN-LAST:event_oneBtnActionPerformed
 
-    private void jButton18MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton18MouseEntered
-        this.jButton18.setBackground(new Color(170, 74, 0));
-    }//GEN-LAST:event_jButton18MouseEntered
+    private void divideBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_divideBtnMouseEntered
+        this.divideBtn.setBackground(this.divideBtn.getBackground().darker());
+    }//GEN-LAST:event_divideBtnMouseEntered
 
-    private void jButton18MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton18MouseExited
-        this.jButton18.setBackground(Color.ORANGE);
-    }//GEN-LAST:event_jButton18MouseExited
+    private void divideBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_divideBtnMouseExited
+        this.divideBtn.setBackground(new Color(120, 157, 188));
+    }//GEN-LAST:event_divideBtnMouseExited
 
-    private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton18ActionPerformed
+    private void divideBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_divideBtnActionPerformed
         // TODO add your handling code here:
         String aux = this.jLabel1.getText();
         if (!aux.contains(" ")) {
@@ -1195,17 +1232,17 @@ public class CalcView extends javax.swing.JDialog {
                 this.jLabel1.setText(aux);
             }
         }
-    }//GEN-LAST:event_jButton18ActionPerformed
+    }//GEN-LAST:event_divideBtnActionPerformed
 
-    private void jButton8MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton8MouseEntered
-        this.jButton8.setBackground(new Color(140, 140, 140));
-    }//GEN-LAST:event_jButton8MouseEntered
+    private void twoButtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_twoButtnMouseEntered
+        this.twoButtn.setBackground(new Color(140, 140, 140));
+    }//GEN-LAST:event_twoButtnMouseEntered
 
-    private void jButton8MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton8MouseExited
-        this.jButton8.setBackground(Color.WHITE);
-    }//GEN-LAST:event_jButton8MouseExited
+    private void twoButtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_twoButtnMouseExited
+        this.twoButtn.setBackground(Color.WHITE);
+    }//GEN-LAST:event_twoButtnMouseExited
 
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+    private void twoButtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_twoButtnActionPerformed
         // TODO add your handling code here:
         String aux = this.jLabel1.getText();
         if (aux.length() -  1 == 0 && aux.charAt(0) == '0') {
@@ -1214,17 +1251,17 @@ public class CalcView extends javax.swing.JDialog {
             aux += 2;
             this.jLabel1.setText(aux);
         }
-    }//GEN-LAST:event_jButton8ActionPerformed
+    }//GEN-LAST:event_twoButtnActionPerformed
 
-    private void jButton19MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton19MouseEntered
-        this.jButton19.setBackground(new Color(140, 140, 140));
-    }//GEN-LAST:event_jButton19MouseEntered
+    private void dotBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dotBtnMouseEntered
+        this.dotBtn.setBackground(new Color(140, 140, 140));
+    }//GEN-LAST:event_dotBtnMouseEntered
 
-    private void jButton19MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton19MouseExited
-        this.jButton19.setBackground(Color.WHITE);
-    }//GEN-LAST:event_jButton19MouseExited
+    private void dotBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dotBtnMouseExited
+        this.dotBtn.setBackground(Color.WHITE);
+    }//GEN-LAST:event_dotBtnMouseExited
 
-    private void jButton19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton19ActionPerformed
+    private void dotBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dotBtnActionPerformed
         // TODO add your handling code here:
         String aux = this.jLabel1.getText();
         if (!aux.contains(".")) {
@@ -1235,19 +1272,19 @@ public class CalcView extends javax.swing.JDialog {
                 this.jLabel1.setText(aux);
             }
         }
-    }//GEN-LAST:event_jButton19ActionPerformed
+    }//GEN-LAST:event_dotBtnActionPerformed
 
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        if (this.jMenuItem4.getText().equals("Mostrar historial")) {
+    private void showLogsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showLogsBtnActionPerformed
+        if (this.showLogsBtn.getText().equals("Mostrar historial")) {
             history.setVisible(true);
-            this.jMenuItem4.setText("Ocultar historial");
+            this.showLogsBtn.setText("Ocultar historial");
         } else {
             history.setVisible(false);
-            this.jMenuItem4.setText("Mostrar historial");
+            this.showLogsBtn.setText("Mostrar historial");
         }
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
+    }//GEN-LAST:event_showLogsBtnActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+    private void exitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitBtnActionPerformed
         System.out.println(operations);
         if (!operations.isEmpty()) {
             int option = JOptionPane.showConfirmDialog(null,
@@ -1258,80 +1295,94 @@ public class CalcView extends javax.swing.JDialog {
             }
         }
         System.exit(0);
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    }//GEN-LAST:event_exitBtnActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
         saveSession();
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_saveBtnActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        System.out.println(operations);
+    private void loadBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadBtnActionPerformed
         if (!operations.isEmpty()) {
             int option = JOptionPane.showConfirmDialog(null,
                 "¿Desea guardar la sesión?", "No ha guardado la sesión actual", JOptionPane.YES_NO_OPTION);
 
             if (option == JOptionPane.OK_OPTION) {
+                this.history.dispose();
                 saveSession();
             }
         }
         loadSession();
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_loadBtnActionPerformed
 
-    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
-        System.out.println(operations);
+    private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
         if (!operations.isEmpty()) {
             int option = JOptionPane.showConfirmDialog(null,
                 "¿Desea guardar la sesión?", "No ha guardado la sesión actual", JOptionPane.YES_NO_OPTION);
 
             if (option == JOptionPane.OK_OPTION) {
+                this.history.dispose();
                 saveSession();
             }
         }
         dispose();
-    }//GEN-LAST:event_jMenuItem8ActionPerformed
+    }//GEN-LAST:event_logoutBtnActionPerformed
+
+    private void helpBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpBtnActionPerformed
+        new HelpView(parent, true).setVisible(true);
+    }//GEN-LAST:event_helpBtnActionPerformed
+
+    private void useCaseBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_useCaseBtnActionPerformed
+        new UseCaseView(parent, true).setVisible(true);
+    }//GEN-LAST:event_useCaseBtnActionPerformed
+
+    private void aboutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutBtnActionPerformed
+        new AboutView(parent, true).setVisible(true);
+    }//GEN-LAST:event_aboutBtnActionPerformed
       
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton12;
-    private javax.swing.JButton jButton13;
-    private javax.swing.JButton jButton14;
-    private javax.swing.JButton jButton15;
-    private javax.swing.JButton jButton16;
-    private javax.swing.JButton jButton17;
-    private javax.swing.JButton jButton18;
-    private javax.swing.JButton jButton19;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton20;
-    private javax.swing.JButton jButton21;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
+    private javax.swing.JMenuItem aboutBtn;
+    private javax.swing.JButton clearBtn;
+    private javax.swing.JLabel creationDateLbl;
+    private javax.swing.JButton divideBtn;
+    private javax.swing.JButton dotBtn;
+    private javax.swing.JButton eightBtn;
+    private javax.swing.JButton equalsBtn;
+    private javax.swing.JMenuItem exitBtn;
+    private javax.swing.JButton fiveBtn;
+    private javax.swing.JButton fourBtn;
+    private javax.swing.JMenuItem helpBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
-    private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
+    private javax.swing.JMenuItem loadBtn;
+    private javax.swing.JMenuItem logoutBtn;
+    private javax.swing.JButton multiplyBtn;
+    private javax.swing.JButton nineBtn;
+    private javax.swing.JButton oneBtn;
+    private javax.swing.JButton powBtn;
+    private javax.swing.JButton reciprocalBtn;
+    private javax.swing.JMenuItem saveBtn;
     private javax.swing.JLabel sessionCreationDateLbl;
     private javax.swing.JLabel sessionUserLbl;
+    private javax.swing.JButton sevenBtn;
+    private javax.swing.JMenuItem showLogsBtn;
+    private javax.swing.JButton sixBtn;
+    private javax.swing.JButton sqBtn;
+    private javax.swing.JButton substractBtn;
+    private javax.swing.JButton sumBtn;
+    private javax.swing.JButton threeBtn;
+    private javax.swing.JButton twoButtn;
+    private javax.swing.JMenuItem useCaseBtn;
     private javax.swing.JLabel userTitle;
+    private javax.swing.JLabel usernameLbl;
+    private javax.swing.JButton zeroBtn;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,20 +1,26 @@
 package luiscaicedocalc2.classes;
 
 /**
- * @author Luis Carlos
+ * @author Luis Carlos Caicedo Giraldo
  */
 public class Operation {
     public String x;
-    public String y;
     public String operator;
+    public String y;
     public String result;
     
     public Operation() {}
-
-    public Operation(String x, String y, String operator, String result) {
+    
+    public Operation(String x, String operator, String y) {
         this.x = x;
-        this.y = y;
         this.operator = operator;
+        this.y = y;
+    }
+
+    public Operation(String x, String operator, String y, String result) {
+        this.x = x;
+        this.operator = operator;
+        this.y = y;
         this.result = result;
     }
     
@@ -51,7 +57,7 @@ public class Operation {
                     return null; 
                 } else {
                     result = String.valueOf(1 / Double.parseDouble(x));
-                    this.y = "√";
+                    this.operator = "√";
                 }
                 break;
             default:

@@ -1,17 +1,22 @@
 package luiscaicedocalc2.views;
 
+import luiscaicedocalc2.classes.Session;
+
+import java.time.LocalDate;
+
+import java.io.File;
+
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.Color;
-import java.io.File;
-import java.time.LocalDate;
+
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import luiscaicedocalc2.classes.Session;
+
 
 /**
- * @author Luis Carlos
+ * @author Luis Carlos Caicedo Giraldo
  */
 public class MainView extends javax.swing.JFrame {
     
@@ -37,6 +42,8 @@ public class MainView extends javax.swing.JFrame {
         navPane = new javax.swing.JPanel();
         exitPane = new javax.swing.JPanel();
         exitBtn = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         usernameHolder = new javax.swing.JSeparator();
         usernameTextField = new javax.swing.JTextField();
         CalculatorTitleLbl = new javax.swing.JLabel();
@@ -92,10 +99,10 @@ public class MainView extends javax.swing.JFrame {
         exitPane.setLayout(exitPaneLayout);
         exitPaneLayout.setHorizontalGroup(
             exitPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(exitPaneLayout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, exitPaneLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(exitBtn)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         exitPaneLayout.setVerticalGroup(
             exitPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -104,17 +111,31 @@ public class MainView extends javax.swing.JFrame {
                 .addComponent(exitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
+        jLabel2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel2.setText("Calculadora V2");
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/images/calc_logo_small.png"))); // NOI18N
+
         javax.swing.GroupLayout navPaneLayout = new javax.swing.GroupLayout(navPane);
         navPane.setLayout(navPaneLayout);
         navPaneLayout.setHorizontalGroup(
             navPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, navPaneLayout.createSequentialGroup()
-                .addGap(0, 872, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 760, Short.MAX_VALUE)
                 .addComponent(exitPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         navPaneLayout.setVerticalGroup(
             navPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(exitPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(exitPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(navPaneLayout.createSequentialGroup()
+                .addGroup(navPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         mainPane.add(navPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 30));
@@ -199,7 +220,6 @@ public class MainView extends javax.swing.JFrame {
         mainPane.add(loadHistoryBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 450, 100, -1));
 
         logoImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/images/calc_logo.png"))); // NOI18N
-        logoImage.setText("jLabel9");
         mainPane.add(logoImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 70, 190, 100));
 
         UserTitleLbl.setFont(new java.awt.Font("Reem Kufi", 1, 18)); // NOI18N
@@ -236,18 +256,6 @@ public class MainView extends javax.swing.JFrame {
         this.xMouse = evt.getX();
         this.yMouse = evt.getY();
     }//GEN-LAST:event_navPaneMousePressed
-
-    private void exitBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitBtnMouseEntered
-        this.exitPane.setBackground(new Color(240, 100, 100));
-    }//GEN-LAST:event_exitBtnMouseEntered
-
-    private void exitBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitBtnMouseExited
-        this.exitPane.setBackground(new Color(240, 240, 240));
-    }//GEN-LAST:event_exitBtnMouseExited
-
-    private void exitBtnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitBtnMousePressed
-        this.exitPane.setBackground(new Color(140, 40, 40));
-    }//GEN-LAST:event_exitBtnMousePressed
 
     private void loginBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginBtnMouseEntered
         this.loginPane.setBackground(new Color(200, 200, 200));
@@ -306,6 +314,18 @@ public class MainView extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_usernameTextFieldFocusLost
 
+    private void exitBtnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitBtnMousePressed
+        this.exitPane.setBackground(new Color(140, 40, 40));
+    }//GEN-LAST:event_exitBtnMousePressed
+
+    private void exitBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitBtnMouseExited
+        this.exitPane.setBackground(new Color(240, 240, 240));
+    }//GEN-LAST:event_exitBtnMouseExited
+
+    private void exitBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitBtnMouseEntered
+        this.exitPane.setBackground(new Color(240, 100, 100));
+    }//GEN-LAST:event_exitBtnMouseEntered
+
     private void exitBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitBtnMouseClicked
         System.exit(0);
     }//GEN-LAST:event_exitBtnMouseClicked
@@ -314,7 +334,6 @@ public class MainView extends javax.swing.JFrame {
     private void stablishWindowLocation() {
         this.setLocation(SCREEN_SIZE.width / 2 - this.getSize().width /2, SCREEN_SIZE.height / 2 - this.getSize().height /2);
     }
-    
     // </editor-fold>
     
     /**
@@ -361,6 +380,8 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JPanel exitPane;
     private javax.swing.JLabel guestBtn;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel loadHistoryBtn;
     private javax.swing.JLabel loginBtn;
     private javax.swing.JPanel loginPane;
