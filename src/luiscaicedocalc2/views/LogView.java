@@ -1,14 +1,18 @@
 package luiscaicedocalc2.views;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import luiscaicedocalc2.classes.Utilities;
 
 import javax.swing.table.DefaultTableModel;
 
 /**
- * @author Luis Carlos
+ * @author Luis Carlos Caicedo Giraldo
  */
 public class LogView extends javax.swing.JDialog {
-
+    
+    private final Dimension SCREEN_SIZE = Toolkit.getDefaultToolkit().getScreenSize();
+    
     private int xMouse, yMouse;
     
     /**
@@ -29,9 +33,11 @@ public class LogView extends javax.swing.JDialog {
         ScrollPane = new javax.swing.JScrollPane();
         Table = new javax.swing.JTable();
         barPane = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
+        setResizable(false);
 
         mainPane.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -50,6 +56,7 @@ public class LogView extends javax.swing.JDialog {
         ScrollPane.setViewportView(Table);
 
         barPane.setBackground(new java.awt.Color(240, 240, 240));
+        barPane.setPreferredSize(new java.awt.Dimension(459, 30));
         barPane.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 barPaneMouseDragged(evt);
@@ -61,15 +68,24 @@ public class LogView extends javax.swing.JDialog {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel1.setText("Historial");
+
         javax.swing.GroupLayout barPaneLayout = new javax.swing.GroupLayout(barPane);
         barPane.setLayout(barPaneLayout);
         barPaneLayout.setHorizontalGroup(
             barPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 450, Short.MAX_VALUE)
+            .addGroup(barPaneLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addContainerGap(407, Short.MAX_VALUE))
         );
         barPaneLayout.setVerticalGroup(
             barPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 30, Short.MAX_VALUE)
+            .addGroup(barPaneLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addContainerGap(10, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout mainPaneLayout = new javax.swing.GroupLayout(mainPane);
@@ -77,12 +93,12 @@ public class LogView extends javax.swing.JDialog {
         mainPaneLayout.setHorizontalGroup(
             mainPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mainPaneLayout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addComponent(ScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(mainPaneLayout.createSequentialGroup()
                 .addComponent(barPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(mainPaneLayout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addComponent(ScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         mainPaneLayout.setVerticalGroup(
             mainPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -97,7 +113,7 @@ public class LogView extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(mainPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(mainPane, javax.swing.GroupLayout.PREFERRED_SIZE, 391, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -119,6 +135,7 @@ public class LogView extends javax.swing.JDialog {
     }//GEN-LAST:event_barPaneMousePressed
 
     private void initView() {
+        this.setLocation(SCREEN_SIZE.width / 4 - this.getSize().width /2, SCREEN_SIZE.height / 2 - this.getSize().height /2);
         initTable();
     }
     
@@ -134,6 +151,7 @@ public class LogView extends javax.swing.JDialog {
     public javax.swing.JScrollPane ScrollPane;
     public javax.swing.JTable Table;
     private javax.swing.JPanel barPane;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel mainPane;
     // End of variables declaration//GEN-END:variables
 }

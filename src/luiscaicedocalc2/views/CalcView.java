@@ -1,8 +1,6 @@
 package luiscaicedocalc2.views;
 
-import luiscaicedocalc2.classes.Operation;
-import luiscaicedocalc2.classes.Session;
-import luiscaicedocalc2.classes.Utilities;
+import luiscaicedocalc2.classes.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,10 +8,10 @@ import java.util.List;
 import java.io.File;
 
 import java.awt.Color;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
@@ -132,26 +130,26 @@ public class CalcView extends javax.swing.JDialog {
         sessionUserLbl.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
         sessionUserLbl.setForeground(new java.awt.Color(255, 255, 255));
         sessionUserLbl.setText("Nombre: ");
-        jPanel2.add(sessionUserLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(33, 42, -1, -1));
+        jPanel2.add(sessionUserLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, -1, -1));
 
         sessionCreationDateLbl.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
         sessionCreationDateLbl.setForeground(new java.awt.Color(255, 255, 255));
         sessionCreationDateLbl.setText("Fecha de creación:");
-        jPanel2.add(sessionCreationDateLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(33, 70, -1, -1));
+        jPanel2.add(sessionCreationDateLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 70, -1, -1));
 
         userTitle.setFont(new java.awt.Font("Reem Kufi", 1, 14)); // NOI18N
         userTitle.setForeground(new java.awt.Color(255, 255, 255));
         userTitle.setText("USUARIO");
         jPanel2.add(userTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 8, -1, -1));
 
-        creationDateLbl.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        creationDateLbl.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
         creationDateLbl.setForeground(new java.awt.Color(255, 255, 255));
-        jPanel2.add(creationDateLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 70, 110, 16));
+        jPanel2.add(creationDateLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 70, 110, 16));
 
         usernameLbl.setBackground(new java.awt.Color(255, 255, 255));
-        usernameLbl.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        usernameLbl.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
         usernameLbl.setForeground(new java.awt.Color(255, 255, 255));
-        jPanel2.add(usernameLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(97, 40, 150, 16));
+        jPanel2.add(usernameLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 40, 150, -1));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(new javax.swing.border.MatteBorder(null));
@@ -246,6 +244,15 @@ public class CalcView extends javax.swing.JDialog {
 
         clearBtn.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
         clearBtn.setText("C");
+        clearBtn.setToolTipText("Limpia la pantalla");
+        clearBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                clearBtnMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                clearBtnMouseExited(evt);
+            }
+        });
         clearBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 clearBtnActionPerformed(evt);
@@ -314,6 +321,14 @@ public class CalcView extends javax.swing.JDialog {
         sqBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         sqBtn.setText("√");
         sqBtn.setToolTipText("Raíz cuadrada del número en pantalla");
+        sqBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                sqBtnMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                sqBtnMouseExited(evt);
+            }
+        });
         sqBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 sqBtnActionPerformed(evt);
@@ -360,6 +375,14 @@ public class CalcView extends javax.swing.JDialog {
         powBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         powBtn.setText("x² ");
         powBtn.setToolTipText("Eleva al cuadrado el número en pantalla");
+        powBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                powBtnMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                powBtnMouseExited(evt);
+            }
+        });
         powBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 powBtnActionPerformed(evt);
@@ -601,20 +624,23 @@ public class CalcView extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(40, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 319, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 35, Short.MAX_VALUE)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 34, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 481, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
 
         pack();
@@ -640,7 +666,6 @@ public class CalcView extends javax.swing.JDialog {
                     return;
                 }
             }
-            
             this.usernameLbl.setText(this.session.getUsername());
             this.creationDateLbl.setText(Utilities.formatDateToEu(this.session.getCreationDate()));
             this.sessionCreationDateLbl.setVisible(true);
@@ -650,11 +675,10 @@ public class CalcView extends javax.swing.JDialog {
             this.logoutBtn.setText("Cerrar sesión");
             initTable();
         } else {
-            this.usernameLbl.setText("invitado");
+            this.usernameLbl.setText("Invitado");
             this.creationDateLbl.setVisible(false);
             this.showLogsBtn.setEnabled(false);
             this.sessionCreationDateLbl.setVisible(false);
-            this.saveBtn.setEnabled(false);
             this.logoutBtn.setText("Atras");
             
         }
@@ -717,9 +741,24 @@ public class CalcView extends javax.swing.JDialog {
             
         JFileChooser fc = new JFileChooser();
         fc.setDialogTitle("Guardar una sesión");
-        fc.setSelectedFile( new File(session.getUsername() + "-" + Utilities.formatDateToEu(session.getCreationDate()) + ".txt")  );
-        int option = fc.showSaveDialog(parent);
-        if (option == JFileChooser.APPROVE_OPTION) Utilities.createSessionFile(session, fc.getSelectedFile());
+        if (session != null) {
+            fc.setSelectedFile( new File(session.getUsername() + "-" + Utilities.formatDateToEu(session.getCreationDate()) + ".txt")  );
+        }  else {
+            String input = JOptionPane.showInputDialog(null, "Introduce el nombre de la sesion", "Guardar una sesión", JOptionPane.QUESTION_MESSAGE);
+            if (input != null) {
+                this.session = new Session(input, java.time.LocalDate.now(), operations);
+                sessionType = 1;
+                setSession();
+                fc.setSelectedFile( new File(this.session.getUsername() + "-" + this.session.getCreationDate().toString() + ".txt") );
+            } else{
+               return; 
+            }     
+        }
+        
+        int option = fc.showSaveDialog(this);
+        if (option == JFileChooser.APPROVE_OPTION) {
+            Utilities.createSessionFile(session, fc.getSelectedFile());
+        } 
     }
     
     private void loadSession() {
@@ -728,17 +767,16 @@ public class CalcView extends javax.swing.JDialog {
         fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
         fc.addChoosableFileFilter(filter);
         fc.setDialogTitle("Cargar una sesión");
-        int option = fc.showOpenDialog(parent);
+        int option = fc.showOpenDialog(this);
         if (option == JFileChooser.APPROVE_OPTION) {
             this.sessionFile = fc.getSelectedFile();
             this.session = null;
             this.sessionType = 1;
             setSession();
+            initTable();
         }
     }
     
-    
-      
     private void setTheme() {
         this.getContentPane().setBackground(Color.WHITE);
         this.clearBtn.setBackground(Color.WHITE);
@@ -785,7 +823,7 @@ public class CalcView extends javax.swing.JDialog {
     }//GEN-LAST:event_substractBtnActionPerformed
 
     private void zeroBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_zeroBtnMouseEntered
-        this.zeroBtn.setBackground(new Color(140, 140, 140));
+        this.zeroBtn.setBackground(Color.WHITE.darker());
     }//GEN-LAST:event_zeroBtnMouseEntered
 
     private void zeroBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_zeroBtnMouseExited
@@ -803,7 +841,7 @@ public class CalcView extends javax.swing.JDialog {
     }//GEN-LAST:event_zeroBtnActionPerformed
 
     private void threeBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_threeBtnMouseEntered
-        this.threeBtn.setBackground(new Color(140, 140, 140));
+        this.threeBtn.setBackground(Color.WHITE.darker());
     }//GEN-LAST:event_threeBtnMouseEntered
 
     private void threeBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_threeBtnMouseExited
@@ -853,7 +891,7 @@ public class CalcView extends javax.swing.JDialog {
     }//GEN-LAST:event_equalsBtnActionPerformed
 
     private void fourBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fourBtnMouseEntered
-        this.fourBtn.setBackground(new Color(140, 140, 140));
+        this.fourBtn.setBackground(Color.WHITE.darker());
     }//GEN-LAST:event_fourBtnMouseEntered
 
     private void fourBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fourBtnMouseExited
@@ -871,7 +909,7 @@ public class CalcView extends javax.swing.JDialog {
     }//GEN-LAST:event_fourBtnActionPerformed
 
     private void fiveBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fiveBtnMouseEntered
-        this.fiveBtn.setBackground(new Color(140, 140, 140));
+        this.fiveBtn.setBackground(Color.WHITE.darker());
     }//GEN-LAST:event_fiveBtnMouseEntered
 
     private void fiveBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fiveBtnMouseExited
@@ -1017,9 +1055,9 @@ public class CalcView extends javax.swing.JDialog {
                 operation = new Operation();
                 if (!screen.contains(" ")) {
                     if (screen.length() > 0 && screen.charAt(screen.length() - 1) != ' ') {
-                        operation.x = screen;
-                        operation.operator = "^";
-                        operation.y = null;
+                        operation.setX(screen);
+                        operation.setY(null);
+                        operation.setOperator("^");
                         this.result = operation.getResult();
                         this.jLabel1.setText(this.result);
                     }
@@ -1029,9 +1067,9 @@ public class CalcView extends javax.swing.JDialog {
                 operation = new Operation();
                 if (!screen.contains(" ")) {
                     if (screen.length() > 0 && screen.charAt(screen.length() - 1) != ' ') {
-                        operation.x = screen;
-                        operation.operator = "s";
-                        operation.y = null;
+                        operation.setX(screen);
+                        operation.setY(null);
+                        operation.setOperator("s");
                         this.result = operation.getResult();
                         this.jLabel1.setText(this.result);
                     }
@@ -1041,7 +1079,7 @@ public class CalcView extends javax.swing.JDialog {
     }//GEN-LAST:event_clearBtnKeyPressed
 
     private void sixBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sixBtnMouseEntered
-        this.sixBtn.setBackground(new Color(140, 140, 140));
+        this.sixBtn.setBackground(Color.WHITE.darker());
     }//GEN-LAST:event_sixBtnMouseEntered
 
     private void sixBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sixBtnMouseExited
@@ -1064,9 +1102,9 @@ public class CalcView extends javax.swing.JDialog {
         String aux = this.jLabel1.getText();
         if (!aux.contains(" ")) {
             if (aux.length() > 0 && aux.charAt(aux.length() - 1) != ' ') {
-                operation.x = aux;
-                operation.operator = "s";
-                operation.y = null;
+                operation.setX(aux);
+                operation.setOperator("s");
+                operation.setY(null);
                 this.result = operation.getResult();
                 this.jLabel1.setText(this.result);
             }
@@ -1100,9 +1138,9 @@ public class CalcView extends javax.swing.JDialog {
         String aux = this.jLabel1.getText();
         if (!aux.contains(" ")) {
             if (aux.length() > 0 && aux.charAt(aux.length() - 1) != ' ') {
-                operation.x = aux;
-                operation.operator = "^";
-                operation.y = null;
+                operation.setX(aux);
+                operation.setOperator("^");
+                operation.setY(null);
                 this.result = operation.getResult();
                 this.jLabel1.setText(this.result);
             }
@@ -1113,7 +1151,7 @@ public class CalcView extends javax.swing.JDialog {
     }//GEN-LAST:event_powBtnActionPerformed
 
     private void eightBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eightBtnMouseEntered
-        this.eightBtn.setBackground(new Color(140, 140, 140));
+        this.eightBtn.setBackground(Color.WHITE.darker());
     }//GEN-LAST:event_eightBtnMouseEntered
 
     private void eightBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eightBtnMouseExited
@@ -1132,7 +1170,7 @@ public class CalcView extends javax.swing.JDialog {
     }//GEN-LAST:event_eightBtnActionPerformed
 
     private void reciprocalBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reciprocalBtnMouseEntered
-        this.reciprocalBtn.setBackground(new Color(140, 140, 140));
+        this.reciprocalBtn.setBackground(Color.WHITE.darker());
     }//GEN-LAST:event_reciprocalBtnMouseEntered
 
     private void reciprocalBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reciprocalBtnMouseExited
@@ -1144,8 +1182,9 @@ public class CalcView extends javax.swing.JDialog {
         String aux = this.jLabel1.getText();
         if (!aux.contains(" ")) {
             if (aux.length() > 0 && aux.charAt(aux.length() - 1) != ' ') {
-                operation.x = aux;
-                operation.operator = "/";
+                operation.setX(aux);
+                operation.setOperator("/");
+                operation.setY(null);
                 this.result = operation.getResult();
                 if (this.result == null) {
                     this.jLabel1.setText("0");
@@ -1160,7 +1199,7 @@ public class CalcView extends javax.swing.JDialog {
     }//GEN-LAST:event_reciprocalBtnActionPerformed
 
     private void sevenBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sevenBtnMouseEntered
-        this.sevenBtn.setBackground(new Color(140, 140, 140));
+        this.sevenBtn.setBackground(Color.WHITE.darker());
     }//GEN-LAST:event_sevenBtnMouseEntered
 
     private void sevenBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sevenBtnMouseExited
@@ -1198,7 +1237,7 @@ public class CalcView extends javax.swing.JDialog {
     }//GEN-LAST:event_sumBtnActionPerformed
 
     private void nineBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nineBtnMouseEntered
-        this.nineBtn.setBackground(new Color(140, 140, 140));
+        this.nineBtn.setBackground(Color.WHITE.darker());
     }//GEN-LAST:event_nineBtnMouseEntered
 
     private void nineBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nineBtnMouseExited
@@ -1217,7 +1256,7 @@ public class CalcView extends javax.swing.JDialog {
     }//GEN-LAST:event_nineBtnActionPerformed
 
     private void oneBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_oneBtnMouseEntered
-        this.oneBtn.setBackground(new Color(140, 140, 140));
+        this.oneBtn.setBackground(Color.WHITE.darker());
     }//GEN-LAST:event_oneBtnMouseEntered
 
     private void oneBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_oneBtnMouseExited
@@ -1255,7 +1294,7 @@ public class CalcView extends javax.swing.JDialog {
     }//GEN-LAST:event_divideBtnActionPerformed
 
     private void twoButtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_twoButtnMouseEntered
-        this.twoButtn.setBackground(new Color(140, 140, 140));
+        this.twoButtn.setBackground(Color.WHITE.darker());
     }//GEN-LAST:event_twoButtnMouseEntered
 
     private void twoButtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_twoButtnMouseExited
@@ -1274,7 +1313,7 @@ public class CalcView extends javax.swing.JDialog {
     }//GEN-LAST:event_twoButtnActionPerformed
 
     private void dotBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dotBtnMouseEntered
-        this.dotBtn.setBackground(new Color(140, 140, 140));
+        this.dotBtn.setBackground(Color.WHITE.darker());
     }//GEN-LAST:event_dotBtnMouseEntered
 
     private void dotBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dotBtnMouseExited
@@ -1330,7 +1369,6 @@ public class CalcView extends javax.swing.JDialog {
             }
         }
         loadSession();
-        initTable();
     }//GEN-LAST:event_loadBtnActionPerformed
 
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
@@ -1357,6 +1395,30 @@ public class CalcView extends javax.swing.JDialog {
     private void aboutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutBtnActionPerformed
         new AboutView(this, true).setVisible(true);
     }//GEN-LAST:event_aboutBtnActionPerformed
+
+    private void powBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_powBtnMouseEntered
+        this.powBtn.setBackground(Color.WHITE.darker());
+    }//GEN-LAST:event_powBtnMouseEntered
+
+    private void powBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_powBtnMouseExited
+        this.powBtn.setBackground(Color.WHITE);
+    }//GEN-LAST:event_powBtnMouseExited
+
+    private void sqBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sqBtnMouseEntered
+        this.sqBtn.setBackground(Color.WHITE.darker());
+    }//GEN-LAST:event_sqBtnMouseEntered
+
+    private void sqBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sqBtnMouseExited
+        this.sqBtn.setBackground(Color.WHITE);
+    }//GEN-LAST:event_sqBtnMouseExited
+
+    private void clearBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clearBtnMouseEntered
+        this.clearBtn.setBackground(Color.WHITE.darker());
+    }//GEN-LAST:event_clearBtnMouseEntered
+
+    private void clearBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clearBtnMouseExited
+        this.clearBtn.setBackground(Color.WHITE);
+    }//GEN-LAST:event_clearBtnMouseExited
       
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem aboutBtn;

@@ -4,7 +4,7 @@ import java.util.List;
 import java.time.LocalDate;
 
 /**
- * @author Luis Carlos
+ * @author Luis Carlos Caicedo Giraldo
  */
 public class Session {
     private String username;
@@ -16,6 +16,12 @@ public class Session {
     public Session(String username, LocalDate creationDate) {
         this.username = username;
         this.creationDate = creationDate;
+    }
+    
+     public Session(String username, LocalDate creationDate, List<Operation> operations) {
+        this.username = username;
+        this.creationDate = creationDate;
+        this.operations = operations;
     }
 
     public String getUsername() { return this.username; }

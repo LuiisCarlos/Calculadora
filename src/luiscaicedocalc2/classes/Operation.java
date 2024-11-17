@@ -4,10 +4,10 @@ package luiscaicedocalc2.classes;
  * @author Luis Carlos Caicedo Giraldo
  */
 public class Operation {
-    public String x;
-    public String operator;
-    public String y;
-    public String result;
+    private String x;
+    private String operator;
+    private String y;
+    private String result;
     
     public Operation() {}
     
@@ -23,7 +23,16 @@ public class Operation {
         this.y = y;
         this.result = result;
     }
+
+    public String getX() { return this.x;}
+    public void setX(String x) {this.x = x; }
     
+    public String getY() { return this.y; }
+    public void setY(String y) { this.y = y; }
+    
+    public String getOperator() { return this.operator; }
+    public void setOperator(String operator) { this.operator = operator; }
+
     public String getResult() {
         String number = "";
         switch (operator) {
