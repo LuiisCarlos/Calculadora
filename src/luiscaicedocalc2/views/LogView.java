@@ -14,7 +14,7 @@ public class LogView extends javax.swing.JDialog {
     /**
      * Creates new form LogView
      */
-    public LogView(javax.swing.JFrame parent, boolean modal) {
+    public LogView(java.awt.Dialog parent, boolean modal) {
         super(parent, modal);
         initComponents();
         
@@ -65,7 +65,7 @@ public class LogView extends javax.swing.JDialog {
         barPane.setLayout(barPaneLayout);
         barPaneLayout.setHorizontalGroup(
             barPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 700, Short.MAX_VALUE)
+            .addGap(0, 450, Short.MAX_VALUE)
         );
         barPaneLayout.setVerticalGroup(
             barPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -77,12 +77,12 @@ public class LogView extends javax.swing.JDialog {
         mainPaneLayout.setHorizontalGroup(
             mainPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mainPaneLayout.createSequentialGroup()
-                .addComponent(barPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(mainPaneLayout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addComponent(ScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(mainPaneLayout.createSequentialGroup()
+                .addComponent(barPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         mainPaneLayout.setVerticalGroup(
             mainPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -97,7 +97,7 @@ public class LogView extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(mainPane, javax.swing.GroupLayout.PREFERRED_SIZE, 450, Short.MAX_VALUE)
+            .addComponent(mainPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

@@ -1,6 +1,7 @@
 package luiscaicedocalc2.views;
 
 import luiscaicedocalc2.classes.Session;
+import luiscaicedocalc2.classes.Utilities;
 
 import java.time.LocalDate;
 
@@ -292,12 +293,18 @@ public class MainView extends javax.swing.JFrame {
         var option = fileChooser.showOpenDialog(this);
         if (option == JFileChooser.APPROVE_OPTION) {
             sessionFile = fileChooser.getSelectedFile();
-            new CalcView(this, false, sessionFile).setVisible(true);
+            try {
+                Session session = Utilities.getSession(sessionFile);
+                new CalcView(this, false, session).setVisible(true);
+            }  catch (Exception e) {
+                JOptionPane.showMessageDialog(null,
+                        "El formato del archivo no es válido", "!Atención", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }//GEN-LAST:event_loadHistoryBtnMouseClicked
 
     private void guestBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_guestBtnMouseClicked
-        new CalcView(this, false).setVisible(true);
+        new CalcView(this, false).setVisible(true) ;
     }//GEN-LAST:event_guestBtnMouseClicked
 
     private void usernameTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_usernameTextFieldFocusGained

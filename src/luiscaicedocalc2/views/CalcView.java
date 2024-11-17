@@ -14,6 +14,8 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -26,6 +28,7 @@ import javax.swing.table.DefaultTableModel;
 public class CalcView extends javax.swing.JDialog {
     
     private final Dimension SCREEN_SIZE = Toolkit.getDefaultToolkit().getScreenSize();
+    private final Dimension MAX_DIMENSION = new Dimension(1200, 800);
     private final MainView parent;
     
     private List<Operation> operations = new ArrayList<>();
@@ -45,7 +48,7 @@ public class CalcView extends javax.swing.JDialog {
         
         this.parent = (MainView) parent;
         sessionType = 0;
-        initApp();
+        initView();
     }
     
     public CalcView(java.awt.Frame parent, boolean modal, File sessionFile) {
@@ -55,7 +58,7 @@ public class CalcView extends javax.swing.JDialog {
         this.parent = (MainView) parent;
         this.sessionFile = sessionFile;
         sessionType = 1;
-        initApp();
+        initView();
     }
     
     public CalcView(java.awt.Frame parent, boolean modal, Session session) {
@@ -65,7 +68,7 @@ public class CalcView extends javax.swing.JDialog {
         this.parent = (MainView) parent;
         this.session = session;
         sessionType = 1;
-        initApp();
+        initView();
     }
     
     @SuppressWarnings("unchecked")
@@ -120,7 +123,6 @@ public class CalcView extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Calculadora");
         setMinimumSize(new java.awt.Dimension(400, 680));
-        setPreferredSize(new java.awt.Dimension(400, 680));
 
         jPanel2.setBackground(new java.awt.Color(120, 157, 188));
         jPanel2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -598,42 +600,45 @@ public class CalcView extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(37, 43, Short.MAX_VALUE)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(38, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 319, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(18, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 481, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     // <editor-fold defaultstate="collapsed" desc="Custom code">  
-    private void initApp() {
+    private void initView() {
         this.setLocation(SCREEN_SIZE.width / 2 - this.getSize().width /2, SCREEN_SIZE.height / 2 - this.getSize().height /2);
-        this.history = new LogView(parent, false);
+        this.history = new LogView(this, false);
         setTheme();
         setSession();
-        addDefaultCloseOperation();
+        customizeWindowBehavior();
     }
     
     private void setSession() {
         if (sessionType == 1) {
-            if (session == null) {
-                session = Utilities.getSession(sessionFile);
-                initTable();
+            if (session == null) { 
+                try {
+                    session = Utilities.getSession(sessionFile);
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null,
+                        "El formato del archivo no es válido", "!Atención", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
             }
             
             this.usernameLbl.setText(this.session.getUsername());
@@ -642,16 +647,15 @@ public class CalcView extends javax.swing.JDialog {
             this.creationDateLbl.setVisible(true);
             this.showLogsBtn.setEnabled(true);
             this.saveBtn.setEnabled(true);
-            this.logoutBtn.setVisible(true);
-            this.jSeparator1.setVisible(true);
+            this.logoutBtn.setText("Cerrar sesión");
+            initTable();
         } else {
             this.usernameLbl.setText("invitado");
             this.creationDateLbl.setVisible(false);
             this.showLogsBtn.setEnabled(false);
             this.sessionCreationDateLbl.setVisible(false);
             this.saveBtn.setEnabled(false);
-            this.logoutBtn.setVisible(false);
-            this.jSeparator1.setVisible(false);
+            this.logoutBtn.setText("Atras");
             
         }
     }
@@ -662,7 +666,11 @@ public class CalcView extends javax.swing.JDialog {
     }
     
     private void initTable() {
-        history.Table.setModel(Utilities.initTable(session.getOperations()));
+        if (session.getOperations() == null) {
+            history.Table.setModel(Utilities.initTable());
+        } else {
+            history.Table.setModel(Utilities.initTable(session.getOperations()));
+        }
     }
     
     private void confirmExit() {
@@ -675,11 +683,22 @@ public class CalcView extends javax.swing.JDialog {
         closeLogView();
     }
 
-    private void addDefaultCloseOperation() {
+    private void customizeWindowBehavior() {
         addWindowListener( new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
                 confirmExit();
+            }
+        });
+        
+        addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+
+                Dimension currentSize = getSize();
+                int width = Math.min(currentSize.width, MAX_DIMENSION.width);
+                int height = Math.min(currentSize.height, MAX_DIMENSION.height);
+                setSize(width, height);
             }
         });
     }
@@ -697,24 +716,28 @@ public class CalcView extends javax.swing.JDialog {
         }
             
         JFileChooser fc = new JFileChooser();
+        fc.setDialogTitle("Guardar una sesión");
         fc.setSelectedFile( new File(session.getUsername() + "-" + Utilities.formatDateToEu(session.getCreationDate()) + ".txt")  );
         int option = fc.showSaveDialog(parent);
         if (option == JFileChooser.APPROVE_OPTION) Utilities.createSessionFile(session, fc.getSelectedFile());
     }
     
     private void loadSession() {
-        JFileChooser fileChooser = new JFileChooser();
+        JFileChooser fc = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter(".txt", "txt");
-        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-        fileChooser.addChoosableFileFilter(filter);
-        int option = fileChooser.showOpenDialog(parent);
+        fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        fc.addChoosableFileFilter(filter);
+        fc.setDialogTitle("Cargar una sesión");
+        int option = fc.showOpenDialog(parent);
         if (option == JFileChooser.APPROVE_OPTION) {
-            this.sessionFile = fileChooser.getSelectedFile();
-            session = null;
-            sessionType = 1;
+            this.sessionFile = fc.getSelectedFile();
+            this.session = null;
+            this.sessionType = 1;
             setSession();
         }
     }
+    
+    
       
     private void setTheme() {
         this.getContentPane().setBackground(Color.WHITE);
@@ -752,7 +775,6 @@ public class CalcView extends javax.swing.JDialog {
     }//GEN-LAST:event_substractBtnMouseExited
 
     private void substractBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_substractBtnActionPerformed
-        // TODO add your handling code here:
         String aux = this.jLabel1.getText();
         if (!aux.contains(" ")) {
             if (aux.length() > 0 && aux.charAt(aux.length() - 1) != ' ') {
@@ -1088,7 +1110,6 @@ public class CalcView extends javax.swing.JDialog {
         
         operations.add(operation);
         updateTable();
-        System.out.println(operations);
     }//GEN-LAST:event_powBtnActionPerformed
 
     private void eightBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eightBtnMouseEntered
@@ -1136,7 +1157,6 @@ public class CalcView extends javax.swing.JDialog {
         
         operations.add(operation);
         updateTable();
-        System.out.println(operations);
     }//GEN-LAST:event_reciprocalBtnActionPerformed
 
     private void sevenBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sevenBtnMouseEntered
@@ -1262,7 +1282,6 @@ public class CalcView extends javax.swing.JDialog {
     }//GEN-LAST:event_dotBtnMouseExited
 
     private void dotBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dotBtnActionPerformed
-        // TODO add your handling code here:
         String aux = this.jLabel1.getText();
         if (!aux.contains(".")) {
             if (aux.length() - 1 == 0 && aux.charAt(0) == '0') {
@@ -1285,7 +1304,6 @@ public class CalcView extends javax.swing.JDialog {
     }//GEN-LAST:event_showLogsBtnActionPerformed
 
     private void exitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitBtnActionPerformed
-        System.out.println(operations);
         if (!operations.isEmpty()) {
             int option = JOptionPane.showConfirmDialog(null,
                 "¿Desea guardar la sesión?", "No ha guardado la sesión actual", JOptionPane.YES_NO_OPTION);
@@ -1312,6 +1330,7 @@ public class CalcView extends javax.swing.JDialog {
             }
         }
         loadSession();
+        initTable();
     }//GEN-LAST:event_loadBtnActionPerformed
 
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
@@ -1328,15 +1347,15 @@ public class CalcView extends javax.swing.JDialog {
     }//GEN-LAST:event_logoutBtnActionPerformed
 
     private void helpBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpBtnActionPerformed
-        new HelpView(parent, true).setVisible(true);
+        new HelpView(this, true).setVisible(true);
     }//GEN-LAST:event_helpBtnActionPerformed
 
     private void useCaseBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_useCaseBtnActionPerformed
-        new UseCaseView(parent, true).setVisible(true);
+        new UseCaseView(this, true).setVisible(true);
     }//GEN-LAST:event_useCaseBtnActionPerformed
 
     private void aboutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutBtnActionPerformed
-        new AboutView(parent, true).setVisible(true);
+        new AboutView(this, true).setVisible(true);
     }//GEN-LAST:event_aboutBtnActionPerformed
       
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -25,52 +25,46 @@ public class Operation {
     }
     
     public String getResult() {
-        String result = "";
+        String number = "";
         switch (operator) {
-            case "+":
-                result += (Double.parseDouble(x) + Double.parseDouble(y));
-                break;
-            case "-":
-                result += (Double.parseDouble(x) - Double.parseDouble(y));
-                break;
-            case "x":
-                result += (Double.parseDouble(x) * Double.parseDouble(y));
-                break;
-            case "÷":
+            case "+" -> number += (Double.parseDouble(x) + Double.parseDouble(y));
+            case "-" -> number += (Double.parseDouble(x) - Double.parseDouble(y));
+            case "x" -> number += (Double.parseDouble(x) * Double.parseDouble(y));
+            case "÷" -> {
                 if (y.equals("0")) {
                     return null; 
                 } else {
-                    result += (Double.parseDouble(x) / Double.parseDouble(y));
+                    number += (Double.parseDouble(x) / Double.parseDouble(y));
                     this.y = "÷";
                 }
-                break;
-            case "^":
-                result = String.valueOf( Math.pow(Double.parseDouble(x), 2) );
+            }
+            case "^" -> {
+                number = String.valueOf( Math.pow(Double.parseDouble(x), 2) );
                 this.y = "";
-                break;
-            case "s":
-                result = String.valueOf( Math.sqrt(Double.parseDouble(x)) );
+            }
+            case "s" -> {
+                number = String.valueOf( Math.sqrt(Double.parseDouble(x)) );
                 this.y = "";
-                break;
-            case "/":
+            }
+            case "/" -> {
                 if (x.equals("0")) {
                     return null; 
                 } else {
-                    result = String.valueOf(1 / Double.parseDouble(x));
-                    this.operator = "√";
+                    number = String.valueOf(1 / Double.parseDouble(x));
                 }
-                break;
-            default:
+            }
+            default -> {
                 return "ERROR";
-        }
-        
-        if (result.charAt(result.length() - 1) == '0') {
-            if (result.charAt(result.length() - 2) == '.') {
-                double aux1 = Double.parseDouble(result);
-                result = String.valueOf((int) aux1);
             }
         }
-         this.result = result;
+        
+        if (number.charAt(number.length() - 1) == '0') {
+            if (number.charAt(number.length() - 2) == '.') {
+                double aux1 = Double.parseDouble(number);
+                number = String.valueOf((int) aux1);
+            }
+        }
+        this.result = number;
         return this.result;
     }
 
