@@ -275,7 +275,7 @@ public class MainView extends javax.swing.JFrame {
         String username = this.usernameTextField.getText();
         
         if (!username.isEmpty() || username.equals("Nombre de usuario")) {        
-            this.session = new Session(username, LocalDate.now(), 1);
+            this.session = new Session(username, LocalDate.now(), 1, List.of());
             new CalcView(this, false).setVisible(true);
         } else {
             JOptionPane.showMessageDialog(null, "No se ha introducio un nombre de usuario.", "!Atención!", JOptionPane.ERROR_MESSAGE);

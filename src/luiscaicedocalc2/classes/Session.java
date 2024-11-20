@@ -14,12 +14,6 @@ public class Session {
 
     public Session() {}
     
-    public Session(String username, LocalDate creationDate, Integer type) {
-        this.username = username;
-        this.creationDate = creationDate;
-        this.type = type;
-    }
-    
      public Session(String username, LocalDate creationDate, Integer type, List<Operation> operations) {
         this.username = username;
         this.creationDate = creationDate;
