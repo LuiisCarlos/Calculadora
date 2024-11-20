@@ -17,8 +17,8 @@ import javax.swing.table.DefaultTableModel;
  * @author Luis Carlos Caicedo Giraldo
  */
 public class Utilities {
-    public static Session getSession(File sessionFile) throws Exception {
-        Session session = new Session();
+    public static Historial getSession(File sessionFile) throws Exception {
+        Historial session = new Historial();
         Scanner reader = new Scanner(sessionFile);
         
         while (reader.hasNext()) {
@@ -48,7 +48,7 @@ public class Utilities {
         return session;
     }
     
-   public static boolean createSessionFile(Session session, File file) {
+   public static boolean createSessionFile(Historial session, File file) {
         try (BufferedWriter writer = new BufferedWriter( new FileWriter(file, false))) {
            
             writer.write(session.getUsername() + ";;" +

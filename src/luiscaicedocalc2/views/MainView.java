@@ -1,6 +1,6 @@
 package luiscaicedocalc2.views;
 
-import luiscaicedocalc2.classes.Session;
+import luiscaicedocalc2.classes.Historial;
 import luiscaicedocalc2.classes.Utilities;
 
 import java.time.LocalDate;
@@ -23,7 +23,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class MainView extends javax.swing.JFrame {
     
     private final Dimension SCREEN_SIZE = Toolkit.getDefaultToolkit().getScreenSize();
-    private Session session;
+    private Historial session;
     private int xMouse, yMouse;
     
 
@@ -247,10 +247,6 @@ public class MainView extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    public Session getSession() {
-        return this.session;
-    }
     
     private void navPaneMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_navPaneMouseDragged
         int x = evt.getXOnScreen();
@@ -275,7 +271,7 @@ public class MainView extends javax.swing.JFrame {
         String username = this.usernameTextField.getText();
         
         if (!username.isEmpty() || username.equals("Nombre de usuario")) {        
-            this.session = new Session(username, LocalDate.now(), 1, List.of());
+            this.session = new Historial(username, LocalDate.now(), 1, List.of());
             new CalcView(this, false).setVisible(true);
         } else {
             JOptionPane.showMessageDialog(null, "No se ha introducio un nombre de usuario.", "!Atención!", JOptionPane.ERROR_MESSAGE);
@@ -307,7 +303,7 @@ public class MainView extends javax.swing.JFrame {
     }//GEN-LAST:event_loadHistoryBtnMouseClicked
 
     private void guestBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_guestBtnMouseClicked
-        this.session = new Session("Invitado", LocalDate.now(), 0, List.of());
+        this.session = new Historial("Invitado", LocalDate.now(), 0, List.of());
         new CalcView(this, false).setVisible(true) ;
     }//GEN-LAST:event_guestBtnMouseClicked
 
@@ -345,42 +341,11 @@ public class MainView extends javax.swing.JFrame {
     private void stablishWindowLocation() {
         this.setLocation(SCREEN_SIZE.width / 2 - this.getSize().width /2, SCREEN_SIZE.height / 2 - this.getSize().height /2);
     }
-    // </editor-fold>
     
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MainView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MainView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MainView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MainView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MainView().setVisible(true);
-            }
-        });
+    public Historial getSession() {
+        return this.session;
     }
+    // </editor-fold>    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel CalculatorTitleLbl;

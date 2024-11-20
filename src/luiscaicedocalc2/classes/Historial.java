@@ -6,15 +6,15 @@ import java.time.LocalDate;
 /**
  * @author Luis Carlos Caicedo Giraldo
  */
-public class Session {
+public class Historial {
     private String username;
     private LocalDate creationDate;
     private Integer type;
     private List<Operation> operations;
 
-    public Session() {}
+    public Historial() {}
     
-     public Session(String username, LocalDate creationDate, Integer type, List<Operation> operations) {
+     public Historial(String username, LocalDate creationDate, Integer type, List<Operation> operations) {
         this.username = username;
         this.creationDate = creationDate;
         this.type = type;
