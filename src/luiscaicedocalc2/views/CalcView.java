@@ -850,13 +850,18 @@ public class CalcView extends javax.swing.JDialog {
                 screen.contains("-") || screen.contains("÷") || screen.contains("x")
                 )) {
             fields = screen.split(" ");
-            operation = new Operation(fields[0], fields[1], fields[2]);
-            this.result = operation.getResult();
             
-            if (this.result == null) {
-                JOptionPane.showMessageDialog(null, "No es posible dividir entre 0", "ERROR", JOptionPane.ERROR_MESSAGE);
+            if (fields.length == 3) {
+                operation = new Operation(fields[0], fields[1], fields[2]);
+                this.result = operation.getResult();
+            
+                if (this.result == null) {
+                    JOptionPane.showMessageDialog(null, "No es posible dividir entre 0", "ERROR", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    this.jLabel1.setText(result);
+                }
             } else {
-                this.jLabel1.setText(result);
+                return;
             }
             
             operations.add(operation);
