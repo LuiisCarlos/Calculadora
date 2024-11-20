@@ -9,18 +9,21 @@ import java.time.LocalDate;
 public class Session {
     private String username;
     private LocalDate creationDate;
+    private Integer type;
     private List<Operation> operations;
 
     public Session() {}
     
-    public Session(String username, LocalDate creationDate) {
+    public Session(String username, LocalDate creationDate, Integer type) {
         this.username = username;
         this.creationDate = creationDate;
+        this.type = type;
     }
     
-     public Session(String username, LocalDate creationDate, List<Operation> operations) {
+     public Session(String username, LocalDate creationDate, Integer type, List<Operation> operations) {
         this.username = username;
         this.creationDate = creationDate;
+        this.type = type;
         this.operations = operations;
     }
 
@@ -30,11 +33,14 @@ public class Session {
     public LocalDate getCreationDate() { return this.creationDate; }
     public void setCreationDate(LocalDate creationDate) { this.creationDate = creationDate; }
 
+    public Integer getType() { return type; }
+    public void setType(Integer type) { this.type = type; }
+    
     public List<Operation> getOperations() { return this.operations; }
     public void setOperations(List<Operation> operations) { this.operations = operations; }
 
     @Override
     public String toString() {
-        return "Session{" + "username=" + this.username + ", creationDate=" + this.creationDate + ", operations=" + this.operations + '}';
+        return "Session{" + "username=" + username + ", creationDate=" + creationDate + ", type=" + type + ", operations=" + operations + '}';
     }
 }

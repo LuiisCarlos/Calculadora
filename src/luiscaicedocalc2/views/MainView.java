@@ -10,6 +10,7 @@ import java.io.File;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.Color;
+import java.util.List;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -22,7 +23,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class MainView extends javax.swing.JFrame {
     
     private final Dimension SCREEN_SIZE = Toolkit.getDefaultToolkit().getScreenSize();
-    
+    private Session session;
     private int xMouse, yMouse;
     
 
@@ -247,6 +248,10 @@ public class MainView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public Session getSession() {
+        return this.session;
+    }
+    
     private void navPaneMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_navPaneMouseDragged
         int x = evt.getXOnScreen();
         int y = evt.getYOnScreen();
@@ -269,11 +274,9 @@ public class MainView extends javax.swing.JFrame {
     private void loginBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginBtnMouseClicked
         String username = this.usernameTextField.getText();
         
-        if (!username.isEmpty() || username.equals("Nombre de usuario")) {
-            LocalDate currentDate = LocalDate.now();
-        
-            Session session = new Session(username, currentDate);
-            new CalcView(this, false, session).setVisible(true);
+        if (!username.isEmpty() || username.equals("Nombre de usuario")) {        
+            this.session = new Session(username, LocalDate.now(), 1);
+            new CalcView(this, false).setVisible(true);
         } else {
             JOptionPane.showMessageDialog(null, "No se ha introducio un nombre de usuario.", "!Atención!", JOptionPane.ERROR_MESSAGE);
         }
@@ -294,8 +297,8 @@ public class MainView extends javax.swing.JFrame {
         if (option == JFileChooser.APPROVE_OPTION) {
             sessionFile = fileChooser.getSelectedFile();
             try {
-                Session session = Utilities.getSession(sessionFile);
-                new CalcView(this, false, session).setVisible(true);
+                this.session = Utilities.getSession(sessionFile);
+                new CalcView(this, false).setVisible(true);
             }  catch (Exception e) {
                 JOptionPane.showMessageDialog(null,
                         "El formato del archivo no es válido", "!Atención", JOptionPane.ERROR_MESSAGE);
@@ -304,6 +307,7 @@ public class MainView extends javax.swing.JFrame {
     }//GEN-LAST:event_loadHistoryBtnMouseClicked
 
     private void guestBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_guestBtnMouseClicked
+        this.session = new Session("Invitado", LocalDate.now(), 0, List.of());
         new CalcView(this, false).setVisible(true) ;
     }//GEN-LAST:event_guestBtnMouseClicked
 

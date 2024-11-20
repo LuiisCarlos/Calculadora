@@ -45,27 +45,7 @@ public class CalcView extends javax.swing.JDialog {
         initComponents();
         
         this.parent = (MainView) parent;
-        sessionType = 0;
-        initView();
-    }
-    
-    public CalcView(java.awt.Frame parent, boolean modal, File sessionFile) {
-        super(parent, modal);
-        initComponents();
-        
-        this.parent = (MainView) parent;
-        this.sessionFile = sessionFile;
-        sessionType = 1;
-        initView();
-    }
-    
-    public CalcView(java.awt.Frame parent, boolean modal, Session session) {
-        super(parent, modal);
-        initComponents();
-        
-        this.parent = (MainView) parent;
-        this.session = session;
-        sessionType = 1;
+        this.session = this.parent.getSession();
         initView();
     }
     
@@ -656,16 +636,7 @@ public class CalcView extends javax.swing.JDialog {
     }
     
     private void setSession() {
-        if (sessionType == 1) {
-            if (session == null) { 
-                try {
-                    session = Utilities.getSession(sessionFile);
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(null,
-                        "El formato del archivo no es válido", "!Atención", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-            }
+        if (this.session.getType().equals(1)) {
             this.usernameLbl.setText(this.session.getUsername());
             this.creationDateLbl.setText(Utilities.formatDateToEu(this.session.getCreationDate()));
             this.sessionCreationDateLbl.setVisible(true);
@@ -733,7 +704,7 @@ public class CalcView extends javax.swing.JDialog {
     }
     
     private void saveSession() {
-        if (sessionType == 1) {
+        if (this.session.getType().equals(1)) {
             if (!operations.isEmpty()) {
                 session.setOperations(operations);
             }  
@@ -741,13 +712,12 @@ public class CalcView extends javax.swing.JDialog {
             
         JFileChooser fc = new JFileChooser();
         fc.setDialogTitle("Guardar una sesión");
-        if (session != null) {
+        if (this.session.getType().equals(1)) {
             fc.setSelectedFile( new File(session.getUsername() + "-" + Utilities.formatDateToEu(session.getCreationDate()) + ".txt")  );
         }  else {
             String input = JOptionPane.showInputDialog(null, "Introduce el nombre de la sesion", "Guardar una sesión", JOptionPane.QUESTION_MESSAGE);
             if (input != null) {
-                this.session = new Session(input, java.time.LocalDate.now(), operations);
-                sessionType = 1;
+                this.session = new Session(input, java.time.LocalDate.now(),1, operations);
                 setSession();
                 fc.setSelectedFile( new File(this.session.getUsername() + "-" + this.session.getCreationDate().toString() + ".txt") );
             } else{
@@ -769,9 +739,13 @@ public class CalcView extends javax.swing.JDialog {
         fc.setDialogTitle("Cargar una sesión");
         int option = fc.showOpenDialog(this);
         if (option == JFileChooser.APPROVE_OPTION) {
-            this.sessionFile = fc.getSelectedFile();
-            this.session = null;
-            this.sessionType = 1;
+            try {
+                this.session = Utilities.getSession(sessionFile);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null,
+                   "El formato del archivo no es válido", "!Atención", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
             setSession();
             initTable();
         }
