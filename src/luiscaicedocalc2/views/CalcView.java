@@ -740,7 +740,7 @@ public class CalcView extends javax.swing.JDialog {
         int option = fc.showOpenDialog(this);
         if (option == JFileChooser.APPROVE_OPTION) {
             try {
-                this.session = Utilities.getSession(sessionFile);
+                this.session = Utilities.getSession(fc.getSelectedFile());
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null,
                    "El formato del archivo no es válido", "!Atención", JOptionPane.ERROR_MESSAGE);
