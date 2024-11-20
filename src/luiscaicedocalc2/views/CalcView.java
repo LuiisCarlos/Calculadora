@@ -33,7 +33,7 @@ public class CalcView extends javax.swing.JDialog {
     private String result = "";
     private LogView history;
     private File sessionFile;
-    private Session session;
+    private Historial session;
     private int sessionType;
     
 
@@ -45,27 +45,7 @@ public class CalcView extends javax.swing.JDialog {
         initComponents();
         
         this.parent = (MainView) parent;
-        sessionType = 0;
-        initView();
-    }
-    
-    public CalcView(java.awt.Frame parent, boolean modal, File sessionFile) {
-        super(parent, modal);
-        initComponents();
-        
-        this.parent = (MainView) parent;
-        this.sessionFile = sessionFile;
-        sessionType = 1;
-        initView();
-    }
-    
-    public CalcView(java.awt.Frame parent, boolean modal, Session session) {
-        super(parent, modal);
-        initComponents();
-        
-        this.parent = (MainView) parent;
-        this.session = session;
-        sessionType = 1;
+        this.session = this.parent.getSession();
         initView();
     }
     
@@ -656,22 +636,14 @@ public class CalcView extends javax.swing.JDialog {
     }
     
     private void setSession() {
-        if (sessionType == 1) {
-            if (session == null) { 
-                try {
-                    session = Utilities.getSession(sessionFile);
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(null,
-                        "El formato del archivo no es válido", "!Atención", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-            }
+        if (this.session.getType().equals(1)) {
             this.usernameLbl.setText(this.session.getUsername());
             this.creationDateLbl.setText(Utilities.formatDateToEu(this.session.getCreationDate()));
             this.sessionCreationDateLbl.setVisible(true);
             this.creationDateLbl.setVisible(true);
             this.showLogsBtn.setEnabled(true);
             this.saveBtn.setEnabled(true);
+            this.loadBtn.setEnabled(true);
             this.logoutBtn.setText("Cerrar sesión");
             initTable();
         } else {
@@ -679,6 +651,8 @@ public class CalcView extends javax.swing.JDialog {
             this.creationDateLbl.setVisible(false);
             this.showLogsBtn.setEnabled(false);
             this.sessionCreationDateLbl.setVisible(false);
+            this.saveBtn.setEnabled(false);
+            this.loadBtn.setEnabled(false);
             this.logoutBtn.setText("Atras");
             
         }
@@ -733,7 +707,7 @@ public class CalcView extends javax.swing.JDialog {
     }
     
     private void saveSession() {
-        if (sessionType == 1) {
+        if (this.session.getType().equals(1)) {
             if (!operations.isEmpty()) {
                 session.setOperations(operations);
             }  
@@ -741,24 +715,13 @@ public class CalcView extends javax.swing.JDialog {
             
         JFileChooser fc = new JFileChooser();
         fc.setDialogTitle("Guardar una sesión");
-        if (session != null) {
+        if (this.session.getType().equals(1)) {
             fc.setSelectedFile( new File(session.getUsername() + "-" + Utilities.formatDateToEu(session.getCreationDate()) + ".txt")  );
-        }  else {
-            String input = JOptionPane.showInputDialog(null, "Introduce el nombre de la sesion", "Guardar una sesión", JOptionPane.QUESTION_MESSAGE);
-            if (input != null) {
-                this.session = new Session(input, java.time.LocalDate.now(), operations);
-                sessionType = 1;
-                setSession();
-                fc.setSelectedFile( new File(this.session.getUsername() + "-" + this.session.getCreationDate().toString() + ".txt") );
-            } else{
-               return; 
-            }     
+            int option = fc.showSaveDialog(this);
+            if (option == JFileChooser.APPROVE_OPTION) {
+                Utilities.createSessionFile(session, fc.getSelectedFile());
+            } 
         }
-        
-        int option = fc.showSaveDialog(this);
-        if (option == JFileChooser.APPROVE_OPTION) {
-            Utilities.createSessionFile(session, fc.getSelectedFile());
-        } 
     }
     
     private void loadSession() {
@@ -769,9 +732,13 @@ public class CalcView extends javax.swing.JDialog {
         fc.setDialogTitle("Cargar una sesión");
         int option = fc.showOpenDialog(this);
         if (option == JFileChooser.APPROVE_OPTION) {
-            this.sessionFile = fc.getSelectedFile();
-            this.session = null;
-            this.sessionType = 1;
+            try {
+                this.session = Utilities.getSession(fc.getSelectedFile());
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null,
+                   "El formato del archivo no es válido", "!Atención", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
             setSession();
             initTable();
         }
@@ -876,13 +843,18 @@ public class CalcView extends javax.swing.JDialog {
                 screen.contains("-") || screen.contains("÷") || screen.contains("x")
                 )) {
             fields = screen.split(" ");
-            operation = new Operation(fields[0], fields[1], fields[2]);
-            this.result = operation.getResult();
             
-            if (this.result == null) {
-                JOptionPane.showMessageDialog(null, "No es posible dividir entre 0", "ERROR", JOptionPane.ERROR_MESSAGE);
+            if (fields.length == 3) {
+                operation = new Operation(fields[0], fields[1], fields[2]);
+                this.result = operation.getResult();
+            
+                if (this.result == null) {
+                    JOptionPane.showMessageDialog(null, "No es posible dividir entre 0", "ERROR", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    this.jLabel1.setText(result);
+                }
             } else {
-                this.jLabel1.setText(result);
+                return;
             }
             
             operations.add(operation);
@@ -1345,10 +1317,12 @@ public class CalcView extends javax.swing.JDialog {
     private void exitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitBtnActionPerformed
         if (!operations.isEmpty()) {
             int option = JOptionPane.showConfirmDialog(null,
-                "¿Desea guardar la sesión?", "No ha guardado la sesión actual", JOptionPane.YES_NO_OPTION);
+                "¿Desea guardar la sesión?", "No ha guardado la sesión actual", JOptionPane.YES_NO_CANCEL_OPTION);
 
             if (option == JOptionPane.OK_OPTION) {
                 saveSession();
+            } else if (option == JOptionPane.CANCEL_OPTION) {
+                return;
             }
         }
         System.exit(0);
@@ -1361,11 +1335,13 @@ public class CalcView extends javax.swing.JDialog {
     private void loadBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadBtnActionPerformed
         if (!operations.isEmpty()) {
             int option = JOptionPane.showConfirmDialog(null,
-                "¿Desea guardar la sesión?", "No ha guardado la sesión actual", JOptionPane.YES_NO_OPTION);
+                "¿Desea guardar la sesión?", "No ha guardado la sesión actual", JOptionPane.YES_NO_CANCEL_OPTION);
 
             if (option == JOptionPane.OK_OPTION) {
                 this.history.dispose();
                 saveSession();
+            } else if (option == JOptionPane.CANCEL_OPTION) {
+                return;
             }
         }
         loadSession();
@@ -1374,11 +1350,13 @@ public class CalcView extends javax.swing.JDialog {
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
         if (!operations.isEmpty()) {
             int option = JOptionPane.showConfirmDialog(null,
-                "¿Desea guardar la sesión?", "No ha guardado la sesión actual", JOptionPane.YES_NO_OPTION);
+                "¿Desea guardar la sesión?", "No ha guardado la sesión actual", JOptionPane.YES_NO_CANCEL_OPTION);
 
             if (option == JOptionPane.OK_OPTION) {
                 this.history.dispose();
                 saveSession();
+            } else if (option == JOptionPane.CANCEL_OPTION) {
+                return;
             }
         }
         dispose();

@@ -17,8 +17,8 @@ import javax.swing.table.DefaultTableModel;
  * @author Luis Carlos Caicedo Giraldo
  */
 public class Utilities {
-    public static Session getSession(File sessionFile) throws Exception {
-        Session session = new Session();
+    public static Historial getSession(File sessionFile) throws Exception {
+        Historial session = new Historial();
         Scanner reader = new Scanner(sessionFile);
         
         while (reader.hasNext()) {
@@ -30,9 +30,10 @@ public class Utilities {
             int dateMonth = Integer.parseInt(dateFields[1]);
             int dateDay = Integer.parseInt(dateFields[2]);
             session.setCreationDate(LocalDate.of(dateYear, dateMonth, dateDay));
-               
+            session.setType(Integer.parseInt(sessionFields[2]));
+            
             if (line.contains("&")) {
-                String[] operations = sessionFields[2].split("&");
+                String[] operations = sessionFields[3].split("&");
                 List<Operation> operationsList = new ArrayList<>();
                 for (String s : operations) {
                     String[] operationFields = s.split(",");
@@ -47,10 +48,13 @@ public class Utilities {
         return session;
     }
     
-   public static boolean createSessionFile(Session session, File file) {
+   public static boolean createSessionFile(Historial session, File file) {
         try (BufferedWriter writer = new BufferedWriter( new FileWriter(file, false))) {
            
-            writer.write(session.getUsername() + ";;" + session.getCreationDate().toString() + ";;");
+            writer.write(session.getUsername() + ";;" +
+                    session.getCreationDate().toString() + ";;" +
+                    session.getType().toString() + ";;"
+            );
 
             if (!session.getOperations().isEmpty()) {
                 for (Operation o : session.getOperations()) {
