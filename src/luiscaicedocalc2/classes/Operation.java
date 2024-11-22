@@ -43,7 +43,7 @@ public class Operation {
                 case "x":
                     this.result = x * y; break;
                 case "÷":
-                    if (y.equals(0))
+                    if (y == 0)
                         this.result = null; 
                     else
                         this.result = x / y;

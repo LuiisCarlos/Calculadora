@@ -824,7 +824,7 @@ public class CalcView extends javax.swing.JDialog {
         String[] fields = screenContent.split(" ");
             
         if (fields.length == 3) {
-            Operation operation = new Operation(Double.parseDouble(fields[0]), fields[1], Double.parseDouble(fields[2]));
+            Operation operation = new Operation(Double.valueOf(fields[0]), fields[1], Double.valueOf(fields[2]));
             String result = Utilities.removeZero(operation.resolve());
             
             if (result == null) {
@@ -895,7 +895,7 @@ public class CalcView extends javax.swing.JDialog {
     private void sqBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sqBtnActionPerformed
         String screenContent = this.screenLbl.getText();
         if (!screenContent.contains(" ") && !screenContent.equals("ERROR")) {
-            Operation operation = new Operation(Double.parseDouble(screenContent), "^", null);
+            Operation operation = new Operation(Double.valueOf(screenContent), "^", null);
             this.screenLbl.setText(Utilities.removeZero(operation.resolve()));
             operations.add(operation);
             updateTable();
@@ -922,7 +922,7 @@ public class CalcView extends javax.swing.JDialog {
     private void powBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_powBtnActionPerformed
         String screenContent = this.screenLbl.getText();
         if (!screenContent.contains(" ") && !screenContent.equals("ERROR")) {
-            Operation operation = new Operation(Double.parseDouble(screenContent), "^", null);
+            Operation operation = new Operation(Double.valueOf(screenContent), "^", null);
             this.screenLbl.setText(Utilities.removeZero(operation.resolve()));
             operations.add(operation);
             updateTable();
@@ -957,7 +957,7 @@ public class CalcView extends javax.swing.JDialog {
     private void reciprocalBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reciprocalBtnActionPerformed
         String screenContent = this.screenLbl.getText();
         if (!screenContent.contains(" ") && !screenContent.equals("ERROR") && !screenContent.startsWith("0")) {
-            Operation operation = new Operation(Double.parseDouble(screenContent), "/", null);
+            Operation operation = new Operation(Double.valueOf(screenContent), "/", null);
             this.screenLbl.setText(Utilities.removeZero(operation.resolve()));
             operations.add(operation);
             updateTable();
@@ -1076,10 +1076,12 @@ public class CalcView extends javax.swing.JDialog {
 
     private void dotBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dotBtnActionPerformed
         String screenContent = this.screenLbl.getText();
-        if (screenContent.equals("ERROR") || screenContent.charAt(0) == '0' && !screenContent.contains(".")) {
-            this.screenLbl.setText("0.");
-        } else {
-            this.screenLbl.setText(screenContent + ".");
+        if (!screenContent.contains(".")) {
+            if (screenContent.equals("ERROR") || screenContent.charAt(0) == '0') {
+                this.screenLbl.setText("0.");
+            } else {
+                this.screenLbl.setText(screenContent + ".");
+            }
         }
     }//GEN-LAST:event_dotBtnActionPerformed
 
