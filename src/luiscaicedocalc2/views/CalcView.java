@@ -770,10 +770,9 @@ public class CalcView extends javax.swing.JDialog {
 
     private void substractBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_substractBtnActionPerformed
         String screenContent = this.screenLbl.getText();
-        if (!screenContent.contains(" ")) {
+        if (!screenContent.contains(" ") && !screenContent.equals("ERROR")) {
             if (screenContent.length() > 0 && screenContent.charAt(screenContent.length() - 1) != ' ') {
-                screenContent += " - ";
-                this.screenLbl.setText(screenContent);
+                this.screenLbl.setText(screenContent + " - ");
             }
         }
     }//GEN-LAST:event_substractBtnActionPerformed
@@ -788,7 +787,7 @@ public class CalcView extends javax.swing.JDialog {
 
     private void zeroBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zeroBtnActionPerformed
         String screenContent = this.screenLbl.getText();
-        if (screenContent.equals("ERROR") ||  screenContent.charAt(0) == '0') {
+        if (screenContent.equals("ERROR") ||  screenContent.charAt(0) == '0' && !screenContent.contains(".")) {
             this.screenLbl.setText("0");
         } else {
             this.screenLbl.setText(screenContent + 0);
@@ -805,7 +804,7 @@ public class CalcView extends javax.swing.JDialog {
 
     private void threeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_threeBtnActionPerformed
         String screenContent = this.screenLbl.getText();
-        if (screenContent.equals("ERROR") ||  screenContent.charAt(0) == '0') {
+        if (screenContent.equals("ERROR") ||  screenContent.charAt(0) == '0' && !screenContent.contains(".")) {
             this.screenLbl.setText("3");
         } else {
             this.screenLbl.setText(screenContent + 3);
@@ -823,23 +822,19 @@ public class CalcView extends javax.swing.JDialog {
     private void equalsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_equalsBtnActionPerformed
         String screenContent = this.screenLbl.getText();
         String[] fields = screenContent.split(" ");
-        Operation operation = new Operation();
             
-            if (fields.length == 3) {
-                operation = new Operation(Double.parseDouble(fields[0]), fields[1], Double.parseDouble(fields[2]));
-                String result = Utilities.removeZero(operation.resolve());
+        if (fields.length == 3) {
+            Operation operation = new Operation(Double.parseDouble(fields[0]), fields[1], Double.parseDouble(fields[2]));
+            String result = Utilities.removeZero(operation.resolve());
             
-                if (result == null) {
-                    this.screenLbl.setText("ERROR");
-                } else {
-                    this.screenLbl.setText(result);
-                }
+            if (result == null) {
+                this.screenLbl.setText("ERROR");
             } else {
-                return;
+                this.screenLbl.setText(result);
+                operations.add(operation);
+                updateTable();
             }
-            
-            operations.add(operation);
-            updateTable();
+        }
     }//GEN-LAST:event_equalsBtnActionPerformed
 
     private void fourBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fourBtnMouseEntered
@@ -852,7 +847,7 @@ public class CalcView extends javax.swing.JDialog {
 
     private void fourBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fourBtnActionPerformed
         String screenContent = this.screenLbl.getText();
-        if (screenContent.equals("ERROR") || screenContent.charAt(0) == '0') {
+        if (screenContent.equals("ERROR") || screenContent.charAt(0) == '0' && !screenContent.contains(".")) {
             this.screenLbl.setText("4");
         } else {
             this.screenLbl.setText(screenContent + 4);
@@ -869,7 +864,7 @@ public class CalcView extends javax.swing.JDialog {
 
     private void fiveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fiveBtnActionPerformed
         String screenContent = this.screenLbl.getText();
-        if (screenContent.equals("ERROR") || screenContent.charAt(0) == '0') {
+        if (screenContent.equals("ERROR") || screenContent.charAt(0) == '0' && !screenContent.contains(".")) {
             this.screenLbl.setText("5");
         } else {
             this.screenLbl.setText(screenContent + 5);
@@ -890,25 +885,21 @@ public class CalcView extends javax.swing.JDialog {
 
     private void sixBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sixBtnActionPerformed
         String screenContent = this.screenLbl.getText();
-        if (screenContent.length() -1 == 0 && screenContent.charAt(0) == '0') {
+        if (screenContent.equals("ERROR") || screenContent.charAt(0) == '0' && !screenContent.contains(".")) {
             this.screenLbl.setText("6");
         } else {
-            screenContent += 6;
-            this.screenLbl.setText(screenContent);
+            this.screenLbl.setText(screenContent + 6);
         }
     }//GEN-LAST:event_sixBtnActionPerformed
 
     private void sqBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sqBtnActionPerformed
         String screenContent = this.screenLbl.getText();
-        Operation operation = operation = new Operation(Double.parseDouble(screenContent), "s", null);
-        if (!screenContent.contains(" ")) {
-            if (screenContent.length() > 0 && screenContent.charAt(screenContent.length() - 1) != ' ') {
-                this.screenLbl.setText(Utilities.removeZero(operation.resolve()));
-            }
-        }
-        
-        operations.add(operation);
-        updateTable();
+        if (!screenContent.contains(" ") && !screenContent.equals("ERROR")) {
+            Operation operation = new Operation(Double.parseDouble(screenContent), "^", null);
+            this.screenLbl.setText(Utilities.removeZero(operation.resolve()));
+            operations.add(operation);
+            updateTable();
+        } 
     }//GEN-LAST:event_sqBtnActionPerformed
 
     private void multiplyBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_multiplyBtnMouseEntered
@@ -921,25 +912,21 @@ public class CalcView extends javax.swing.JDialog {
 
     private void multiplyBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_multiplyBtnActionPerformed
         String screenContent = this.screenLbl.getText();
-        if (!screenContent.contains(" ")) {
+        if (!screenContent.contains(" ") && !screenContent.equals("ERROR")) {
             if (screenContent.length() > 0 && screenContent.charAt(screenContent.length() - 1) != ' ') {
-                screenContent += " x ";
-                this.screenLbl.setText(screenContent);
+                this.screenLbl.setText(screenContent + " x ");
             }
         }
     }//GEN-LAST:event_multiplyBtnActionPerformed
 
     private void powBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_powBtnActionPerformed
         String screenContent = this.screenLbl.getText();
-        Operation operation = new Operation(Double.parseDouble(screenContent), "^", null);
-        if (!screenContent.contains(" ")) {
-            if (screenContent.length() > 0 && screenContent.charAt(screenContent.length() - 1) != ' ') {
-                this.screenLbl.setText(Utilities.removeZero(operation.resolve()));
-            }
+        if (!screenContent.contains(" ") && !screenContent.equals("ERROR")) {
+            Operation operation = new Operation(Double.parseDouble(screenContent), "^", null);
+            this.screenLbl.setText(Utilities.removeZero(operation.resolve()));
+            operations.add(operation);
+            updateTable();
         }
-        
-        operations.add(operation);
-        updateTable();
     }//GEN-LAST:event_powBtnActionPerformed
 
     private void eightBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eightBtnMouseEntered
@@ -952,7 +939,7 @@ public class CalcView extends javax.swing.JDialog {
 
     private void eightBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eightBtnActionPerformed
         String screenContent = this.screenLbl.getText();
-        if (screenContent.equals("ERROR") ||  screenContent.charAt(0) == '0') {
+        if (screenContent.equals("ERROR") ||  screenContent.charAt(0) == '0' && !screenContent.contains(".")) {
             this.screenLbl.setText("8");
         } else {
             this.screenLbl.setText(screenContent + 8);
@@ -969,15 +956,12 @@ public class CalcView extends javax.swing.JDialog {
 
     private void reciprocalBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reciprocalBtnActionPerformed
         String screenContent = this.screenLbl.getText();
-        Operation operation = new Operation(Double.parseDouble(screenContent), "/", null);
-        if (!screenContent.contains(" ")) {
-            if (screenContent.length() > 0 && screenContent.charAt(screenContent.length() - 1) != ' ') {
-                this.screenLbl.setText(operation.resolve().toString());
-            }
-        }
-        
-        operations.add(operation);
-        updateTable();
+        if (!screenContent.contains(" ") && !screenContent.equals("ERROR") && !screenContent.startsWith("0")) {
+            Operation operation = new Operation(Double.parseDouble(screenContent), "/", null);
+            this.screenLbl.setText(Utilities.removeZero(operation.resolve()));
+            operations.add(operation);
+            updateTable();
+        } 
     }//GEN-LAST:event_reciprocalBtnActionPerformed
 
     private void sevenBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sevenBtnMouseEntered
@@ -990,11 +974,10 @@ public class CalcView extends javax.swing.JDialog {
 
     private void sevenBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sevenBtnActionPerformed
         String screenContent = this.screenLbl.getText();
-        if (screenContent.length() -1 == 0 && screenContent.charAt(0) == '0') {
+        if (screenContent.equals("ERROR") || screenContent.charAt(0) == '0' && !screenContent.contains(".")) {
             this.screenLbl.setText("7");
         } else {
-            screenContent += 7;
-            this.screenLbl.setText(screenContent);
+            this.screenLbl.setText(screenContent + 7);
         }
     }//GEN-LAST:event_sevenBtnActionPerformed
 
@@ -1008,10 +991,9 @@ public class CalcView extends javax.swing.JDialog {
 
     private void sumBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sumBtnActionPerformed
         String screenContent = this.screenLbl.getText();
-        if (!screenContent.contains(" ")) {
+        if (!screenContent.contains(" ") && !screenContent.equals("ERROR")) {
             if (screenContent.length() > 0 && screenContent.charAt(screenContent.length() - 1) != ' ') {
-                screenContent += " + ";
-                this.screenLbl.setText(screenContent);
+                this.screenLbl.setText(screenContent + " + ");
             }
         }
     }//GEN-LAST:event_sumBtnActionPerformed
@@ -1026,7 +1008,7 @@ public class CalcView extends javax.swing.JDialog {
 
     private void nineBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nineBtnActionPerformed
         String screenContent = this.screenLbl.getText();
-        if (screenContent.equals("ERROR") ||  screenContent.charAt(0) == '0') {
+        if (screenContent.equals("ERROR") || screenContent.charAt(0) == '0' && !screenContent.contains(".")) {
             this.screenLbl.setText("9");
         } else {
             this.screenLbl.setText(screenContent + 9);
@@ -1043,11 +1025,10 @@ public class CalcView extends javax.swing.JDialog {
 
     private void oneBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_oneBtnActionPerformed
         String screenContent = this.screenLbl.getText();
-        if (screenContent.length() -1 == 0 && screenContent.charAt(0) == '0') {
+        if (screenContent.equals("ERROR") || screenContent.charAt(0) == '0' && !screenContent.contains(".")) {
             this.screenLbl.setText("1");
         } else {
-            screenContent += 1;
-            this.screenLbl.setText(screenContent);
+            this.screenLbl.setText(screenContent + 1);
         }
     }//GEN-LAST:event_oneBtnActionPerformed
 
@@ -1061,10 +1042,9 @@ public class CalcView extends javax.swing.JDialog {
 
     private void divideBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_divideBtnActionPerformed
         String screenContent = this.screenLbl.getText();
-        if (!screenContent.contains(" ")) {
+        if (!screenContent.contains(" ") && !screenContent.equals("ERROR")) {
             if (screenContent.length() > 0 && screenContent.charAt(screenContent.length() - 1) != ' ') {
-                screenContent += " ÷ ";
-                this.screenLbl.setText(screenContent);
+                this.screenLbl.setText(screenContent + " ÷ ");
             }
         }
     }//GEN-LAST:event_divideBtnActionPerformed
@@ -1079,7 +1059,7 @@ public class CalcView extends javax.swing.JDialog {
 
     private void twoButtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_twoButtnActionPerformed
         String screenContent = this.screenLbl.getText();
-        if (screenContent.equals("ERROR") ||  screenContent.charAt(0) == '0') {
+        if (screenContent.equals("ERROR") ||  screenContent.charAt(0) == '0' && !screenContent.contains(".")) {
             this.screenLbl.setText("2");
         } else {
             this.screenLbl.setText(screenContent + 2);
@@ -1096,12 +1076,10 @@ public class CalcView extends javax.swing.JDialog {
 
     private void dotBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dotBtnActionPerformed
         String screenContent = this.screenLbl.getText();
-        if (!screenContent.contains(".")) {
-            if (screenContent.equals("ERROR") || screenContent.charAt(0) == '0') {
-                this.screenLbl.setText("0.");
-            } else {
-                this.screenLbl.setText(screenContent + ".");
-            }
+        if (screenContent.equals("ERROR") || screenContent.charAt(0) == '0' && !screenContent.contains(".")) {
+            this.screenLbl.setText("0.");
+        } else {
+            this.screenLbl.setText(screenContent + ".");
         }
     }//GEN-LAST:event_dotBtnActionPerformed
 
