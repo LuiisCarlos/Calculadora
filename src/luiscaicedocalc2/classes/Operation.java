@@ -51,7 +51,7 @@ public class Operation {
                 case "^": 
                     this.result  = Math.pow(x, 2);
                     break;
-                case "s":
+                case "sq":
                     this.result  = Math.sqrt(x);
                     break;
                 case "/":

@@ -895,7 +895,7 @@ public class CalcView extends javax.swing.JDialog {
     private void sqBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sqBtnActionPerformed
         String screenContent = this.screenLbl.getText();
         if (!screenContent.contains(" ") && !screenContent.equals("ERROR")) {
-            Operation operation = new Operation(Double.valueOf(screenContent), "^", null);
+            Operation operation = new Operation(Double.valueOf(screenContent), "sq", null);
             this.screenLbl.setText(Utilities.removeZero(operation.resolve()));
             operations.add(operation);
             updateTable();
