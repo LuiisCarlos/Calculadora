@@ -46,7 +46,7 @@ public class Operation {
                     if (y.equals(0))
                         this.result = null; 
                     else
-                        this.result  += (x / y);
+                        this.result = x / y;
                     break;
                 case "^": 
                     this.result  = Math.pow(x, 2);
