@@ -37,7 +37,13 @@ public class Utilities {
                 List<Operation> operationsList = new ArrayList<>();
                 for (String s : operations) {
                     String[] operationFields = s.split(",");
-                    operationsList.add( new Operation(operationFields[0], operationFields[2], operationFields[1], operationFields[3]));
+                    
+                    operationsList.add( new Operation(
+                                    Double.parseDouble(operationFields[0]),
+                                    operationFields[2],
+                                    Double.parseDouble(operationFields[1]),
+                                    Double.parseDouble(operationFields[3])
+                            ));
                 }
                 session.setOperations(operationsList);
             } else {
@@ -48,7 +54,7 @@ public class Utilities {
         return session;
     }
     
-   public static boolean createSessionFile(Historial session, File file) {
+    public static boolean createSessionFile(Historial session, File file) {
         try (BufferedWriter writer = new BufferedWriter( new FileWriter(file, false))) {
            
             writer.write(session.getUsername() + ";;" +
@@ -59,7 +65,6 @@ public class Utilities {
             if (!session.getOperations().isEmpty()) {
                 for (Operation o : session.getOperations()) {
                     String op = o.toString() + '&';
-                    System.out.print(op);
                     writer.write(op);
                 }
             }
@@ -70,30 +75,35 @@ public class Utilities {
             System.err.println("ERROR" + e.getMessage());
             return false;
         }
-   }
+    }
    
-   public static String formatDateToEu(LocalDate date) {
-       String[] dateFields = date.toString().split("-");
-       return dateFields[2] + "-" + dateFields[1] + "-" + dateFields[0];
-   }
+    public static String formatDateToEu(LocalDate date) {
+        String[] dateFields = date.toString().split("-");
+        return dateFields[2] + "-" + dateFields[1] + "-" + dateFields[0];
+    }
    
-   public static DefaultTableModel updateTable(DefaultTableModel tableModel, List<Operation> operations) {
-       tableModel.addRow(operations.getLast().toArray());
-       return tableModel;
-   }
+    public static DefaultTableModel updateTable(DefaultTableModel tableModel, List<Operation> operations) {
+        tableModel.addRow(operations.getLast().toArray());
+        return tableModel;
+    }
    
-   public static DefaultTableModel initTable (List<Operation> operations) {
+    public static DefaultTableModel initTable(List<Operation> operations) {
+        DefaultTableModel tableModel = new DefaultTableModel();
+        String[] columns = {"x", "operador", "y", "resultado"};
+        tableModel.setColumnIdentifiers(columns);
+        for (Operation o : operations) tableModel.addRow(o.toArray());
+        return tableModel;
+    }
+   
+    public static DefaultTableModel initTable() {
        DefaultTableModel tableModel = new DefaultTableModel();
        String[] columns = {"x", "operador", "y", "resultado"};
        tableModel.setColumnIdentifiers(columns);
-       for (Operation o : operations) tableModel.addRow(o.toArray());
        return tableModel;
-   }
+    }
    
-   public static DefaultTableModel initTable () {
-       DefaultTableModel tableModel = new DefaultTableModel();
-       String[] columns = {"x", "operador", "y", "resultado"};
-       tableModel.setColumnIdentifiers(columns);
-       return tableModel;
-   }
+    public static String removeZero(Double number) {
+        if (number != null) return number % 1 == 0 ? String.valueOf(number.intValue()) : number.toString();
+        return null;
+    }
 }

@@ -27,15 +27,11 @@ public class CalcView extends javax.swing.JDialog {
     
     private final Dimension SCREEN_SIZE = Toolkit.getDefaultToolkit().getScreenSize();
     private final Dimension MAX_DIMENSION = new Dimension(1200, 800);
-    private final MainView parent;
+    private final MainView PARENT;
     
     private List<Operation> operations = new ArrayList<>();
-    private String result = "";
     private LogView history;
-    private File sessionFile;
     private Historial session;
-    private int sessionType;
-    
 
     /**
      * Creates new form CalculatorView
@@ -44,22 +40,21 @@ public class CalcView extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         
-        this.parent = (MainView) parent;
-        this.session = this.parent.getSession();
-        initView();
+        PARENT = (MainView) parent;
+        init();
     }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel2 = new javax.swing.JPanel();
+        userDetailsPane = new javax.swing.JPanel();
         sessionUserLbl = new javax.swing.JLabel();
         sessionCreationDateLbl = new javax.swing.JLabel();
         userTitle = new javax.swing.JLabel();
         creationDateLbl = new javax.swing.JLabel();
         usernameLbl = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
+        calculatorPane = new javax.swing.JPanel();
         sumBtn = new javax.swing.JButton();
         fourBtn = new javax.swing.JButton();
         nineBtn = new javax.swing.JButton();
@@ -79,10 +74,10 @@ public class CalcView extends javax.swing.JDialog {
         threeBtn = new javax.swing.JButton();
         equalsBtn = new javax.swing.JButton();
         reciprocalBtn = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        screenPane = new javax.swing.JPanel();
+        screenLbl = new javax.swing.JLabel();
         sevenBtn = new javax.swing.JButton();
-        jMenuBar1 = new javax.swing.JMenuBar();
+        menuBar = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         loadBtn = new javax.swing.JMenuItem();
         saveBtn = new javax.swing.JMenuItem();
@@ -102,38 +97,38 @@ public class CalcView extends javax.swing.JDialog {
         setTitle("Calculadora");
         setMinimumSize(new java.awt.Dimension(400, 680));
 
-        jPanel2.setBackground(new java.awt.Color(120, 157, 188));
-        jPanel2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanel2.setMinimumSize(new java.awt.Dimension(280, 104));
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        userDetailsPane.setBackground(new java.awt.Color(120, 157, 188));
+        userDetailsPane.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        userDetailsPane.setMinimumSize(new java.awt.Dimension(280, 104));
+        userDetailsPane.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         sessionUserLbl.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
         sessionUserLbl.setForeground(new java.awt.Color(255, 255, 255));
         sessionUserLbl.setText("Nombre: ");
-        jPanel2.add(sessionUserLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, -1, -1));
+        userDetailsPane.add(sessionUserLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, -1, -1));
 
         sessionCreationDateLbl.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
         sessionCreationDateLbl.setForeground(new java.awt.Color(255, 255, 255));
         sessionCreationDateLbl.setText("Fecha de creación:");
-        jPanel2.add(sessionCreationDateLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 70, -1, -1));
+        userDetailsPane.add(sessionCreationDateLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 70, -1, -1));
 
         userTitle.setFont(new java.awt.Font("Reem Kufi", 1, 14)); // NOI18N
         userTitle.setForeground(new java.awt.Color(255, 255, 255));
         userTitle.setText("USUARIO");
-        jPanel2.add(userTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 8, -1, -1));
+        userDetailsPane.add(userTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 8, -1, -1));
 
         creationDateLbl.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
         creationDateLbl.setForeground(new java.awt.Color(255, 255, 255));
-        jPanel2.add(creationDateLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 70, 110, 16));
+        userDetailsPane.add(creationDateLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 70, 110, 16));
 
         usernameLbl.setBackground(new java.awt.Color(255, 255, 255));
         usernameLbl.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
         usernameLbl.setForeground(new java.awt.Color(255, 255, 255));
-        jPanel2.add(usernameLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 40, 150, -1));
+        userDetailsPane.add(usernameLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 40, 150, -1));
 
-        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel3.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        calculatorPane.setBackground(new java.awt.Color(255, 255, 255));
+        calculatorPane.setBorder(new javax.swing.border.MatteBorder(null));
+        calculatorPane.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         sumBtn.setBackground(new java.awt.Color(120, 157, 188));
         sumBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -152,7 +147,7 @@ public class CalcView extends javax.swing.JDialog {
                 sumBtnActionPerformed(evt);
             }
         });
-        jPanel3.add(sumBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 140, 55, 45));
+        calculatorPane.add(sumBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 140, 55, 45));
 
         fourBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         fourBtn.setText("4");
@@ -169,7 +164,7 @@ public class CalcView extends javax.swing.JDialog {
                 fourBtnActionPerformed(evt);
             }
         });
-        jPanel3.add(fourBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 55, 56));
+        calculatorPane.add(fourBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 55, 56));
 
         nineBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         nineBtn.setText("9");
@@ -186,7 +181,7 @@ public class CalcView extends javax.swing.JDialog {
                 nineBtnActionPerformed(evt);
             }
         });
-        jPanel3.add(nineBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 320, 55, 56));
+        calculatorPane.add(nineBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 320, 55, 56));
 
         fiveBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         fiveBtn.setText("5");
@@ -203,7 +198,7 @@ public class CalcView extends javax.swing.JDialog {
                 fiveBtnActionPerformed(evt);
             }
         });
-        jPanel3.add(fiveBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 260, 55, 56));
+        calculatorPane.add(fiveBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 260, 55, 56));
 
         oneBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         oneBtn.setText("1");
@@ -220,7 +215,7 @@ public class CalcView extends javax.swing.JDialog {
                 oneBtnActionPerformed(evt);
             }
         });
-        jPanel3.add(oneBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 55, 56));
+        calculatorPane.add(oneBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 55, 56));
 
         clearBtn.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
         clearBtn.setText("C");
@@ -238,12 +233,7 @@ public class CalcView extends javax.swing.JDialog {
                 clearBtnActionPerformed(evt);
             }
         });
-        clearBtn.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                clearBtnKeyPressed(evt);
-            }
-        });
-        jPanel3.add(clearBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 55, 45));
+        calculatorPane.add(clearBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 55, 45));
 
         divideBtn.setBackground(new java.awt.Color(120, 157, 188));
         divideBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -262,7 +252,7 @@ public class CalcView extends javax.swing.JDialog {
                 divideBtnActionPerformed(evt);
             }
         });
-        jPanel3.add(divideBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 320, 55, 56));
+        calculatorPane.add(divideBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 320, 55, 56));
 
         sixBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         sixBtn.setText("6");
@@ -279,7 +269,7 @@ public class CalcView extends javax.swing.JDialog {
                 sixBtnActionPerformed(evt);
             }
         });
-        jPanel3.add(sixBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 260, 55, 56));
+        calculatorPane.add(sixBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 260, 55, 56));
 
         twoButtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         twoButtn.setText("2");
@@ -296,7 +286,7 @@ public class CalcView extends javax.swing.JDialog {
                 twoButtnActionPerformed(evt);
             }
         });
-        jPanel3.add(twoButtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 200, 55, 56));
+        calculatorPane.add(twoButtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 200, 55, 56));
 
         sqBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         sqBtn.setText("√");
@@ -314,7 +304,7 @@ public class CalcView extends javax.swing.JDialog {
                 sqBtnActionPerformed(evt);
             }
         });
-        jPanel3.add(sqBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, 55, 45));
+        calculatorPane.add(sqBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, 55, 45));
 
         dotBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         dotBtn.setText(".");
@@ -331,7 +321,7 @@ public class CalcView extends javax.swing.JDialog {
                 dotBtnActionPerformed(evt);
             }
         });
-        jPanel3.add(dotBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 390, 55, 56));
+        calculatorPane.add(dotBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 390, 55, 56));
 
         multiplyBtn.setBackground(new java.awt.Color(120, 157, 188));
         multiplyBtn.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
@@ -350,7 +340,7 @@ public class CalcView extends javax.swing.JDialog {
                 multiplyBtnActionPerformed(evt);
             }
         });
-        jPanel3.add(multiplyBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 260, 55, 56));
+        calculatorPane.add(multiplyBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 260, 55, 56));
 
         powBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         powBtn.setText("x² ");
@@ -368,7 +358,7 @@ public class CalcView extends javax.swing.JDialog {
                 powBtnActionPerformed(evt);
             }
         });
-        jPanel3.add(powBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 140, 55, 45));
+        calculatorPane.add(powBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 140, 55, 45));
 
         eightBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         eightBtn.setText("8");
@@ -385,7 +375,7 @@ public class CalcView extends javax.swing.JDialog {
                 eightBtnActionPerformed(evt);
             }
         });
-        jPanel3.add(eightBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 320, 55, 56));
+        calculatorPane.add(eightBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 320, 55, 56));
 
         substractBtn.setBackground(new java.awt.Color(120, 157, 188));
         substractBtn.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -404,7 +394,7 @@ public class CalcView extends javax.swing.JDialog {
                 substractBtnActionPerformed(evt);
             }
         });
-        jPanel3.add(substractBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 200, 55, 56));
+        calculatorPane.add(substractBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 200, 55, 56));
 
         zeroBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         zeroBtn.setText("0");
@@ -421,7 +411,7 @@ public class CalcView extends javax.swing.JDialog {
                 zeroBtnActionPerformed(evt);
             }
         });
-        jPanel3.add(zeroBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 390, 55, 56));
+        calculatorPane.add(zeroBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 390, 55, 56));
 
         threeBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         threeBtn.setText("3");
@@ -438,7 +428,7 @@ public class CalcView extends javax.swing.JDialog {
                 threeBtnActionPerformed(evt);
             }
         });
-        jPanel3.add(threeBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 200, 55, 56));
+        calculatorPane.add(threeBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 200, 55, 56));
 
         equalsBtn.setBackground(new java.awt.Color(120, 157, 188));
         equalsBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -457,7 +447,7 @@ public class CalcView extends javax.swing.JDialog {
                 equalsBtnActionPerformed(evt);
             }
         });
-        jPanel3.add(equalsBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 400, 128, 42));
+        calculatorPane.add(equalsBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 400, 128, 42));
 
         reciprocalBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         reciprocalBtn.setText("1/X");
@@ -475,31 +465,31 @@ public class CalcView extends javax.swing.JDialog {
                 reciprocalBtnActionPerformed(evt);
             }
         });
-        jPanel3.add(reciprocalBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 140, 60, 45));
+        calculatorPane.add(reciprocalBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 140, 60, 45));
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        screenPane.setBackground(new java.awt.Color(255, 255, 255));
+        screenPane.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel1.setText("0");
-        jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        screenLbl.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
+        screenLbl.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        screenLbl.setText("0");
+        screenLbl.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout screenPaneLayout = new javax.swing.GroupLayout(screenPane);
+        screenPane.setLayout(screenPaneLayout);
+        screenPaneLayout.setHorizontalGroup(
+            screenPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(screenPaneLayout.createSequentialGroup()
                 .addGap(31, 31, 31)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(screenLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(30, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
+        screenPaneLayout.setVerticalGroup(
+            screenPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(screenLbl, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
         );
 
-        jPanel3.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 300, 90));
+        calculatorPane.add(screenPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 300, 90));
 
         sevenBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         sevenBtn.setText("7");
@@ -516,7 +506,7 @@ public class CalcView extends javax.swing.JDialog {
                 sevenBtnActionPerformed(evt);
             }
         });
-        jPanel3.add(sevenBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, 55, 56));
+        calculatorPane.add(sevenBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, 55, 56));
 
         jMenu1.setText("Archivo");
 
@@ -554,7 +544,7 @@ public class CalcView extends javax.swing.JDialog {
         });
         jMenu1.add(exitBtn);
 
-        jMenuBar1.add(jMenu1);
+        menuBar.add(jMenu1);
 
         jMenu2.setText("Vista");
 
@@ -566,7 +556,7 @@ public class CalcView extends javax.swing.JDialog {
         });
         jMenu2.add(showLogsBtn);
 
-        jMenuBar1.add(jMenu2);
+        menuBar.add(jMenu2);
 
         jMenu3.setText("Ayuda");
 
@@ -595,9 +585,9 @@ public class CalcView extends javax.swing.JDialog {
         });
         jMenu3.add(aboutBtn);
 
-        jMenuBar1.add(jMenu3);
+        menuBar.add(jMenu3);
 
-        setJMenuBar(jMenuBar1);
+        setJMenuBar(menuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -608,18 +598,18 @@ public class CalcView extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 35, Short.MAX_VALUE)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(calculatorPane, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 34, Short.MAX_VALUE))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(userDetailsPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(userDetailsPane, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 481, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(calculatorPane, javax.swing.GroupLayout.PREFERRED_SIZE, 481, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(52, Short.MAX_VALUE))
         );
 
@@ -627,9 +617,10 @@ public class CalcView extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     // <editor-fold defaultstate="collapsed" desc="Custom code">  
-    private void initView() {
+    private void init() {
         this.setLocation(SCREEN_SIZE.width / 2 - this.getSize().width /2, SCREEN_SIZE.height / 2 - this.getSize().height /2);
         this.history = new LogView(this, false);
+        this.session = PARENT.getSession();
         setTheme();
         setSession();
         customizeWindowBehavior();
@@ -642,8 +633,9 @@ public class CalcView extends javax.swing.JDialog {
             this.sessionCreationDateLbl.setVisible(true);
             this.creationDateLbl.setVisible(true);
             this.showLogsBtn.setEnabled(true);
-            this.saveBtn.setEnabled(true);
-            this.loadBtn.setEnabled(true);
+            this.saveBtn.setVisible(true);
+            this.loadBtn.setVisible(true);
+            this.jSeparator1.setVisible(true);
             this.logoutBtn.setText("Cerrar sesión");
             initTable();
         } else {
@@ -651,8 +643,9 @@ public class CalcView extends javax.swing.JDialog {
             this.creationDateLbl.setVisible(false);
             this.showLogsBtn.setEnabled(false);
             this.sessionCreationDateLbl.setVisible(false);
-            this.saveBtn.setEnabled(false);
-            this.loadBtn.setEnabled(false);
+            this.saveBtn.setVisible(false);
+            this.loadBtn.setVisible(false);
+            this.jSeparator1.setVisible(false);
             this.logoutBtn.setText("Atras");
             
         }
@@ -685,7 +678,7 @@ public class CalcView extends javax.swing.JDialog {
         addWindowListener( new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                confirmExit();
+                if (session.getType().equals(1)) confirmExit();
             }
         });
         
@@ -707,21 +700,17 @@ public class CalcView extends javax.swing.JDialog {
     }
     
     private void saveSession() {
-        if (this.session.getType().equals(1)) {
-            if (!operations.isEmpty()) {
+        if (!session.getOperations().isEmpty()) {
                 session.setOperations(operations);
-            }  
-        }
+        }  
             
         JFileChooser fc = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(".txt", "txt");
+        fc.addChoosableFileFilter(filter);
         fc.setDialogTitle("Guardar una sesión");
-        if (this.session.getType().equals(1)) {
-            fc.setSelectedFile( new File(session.getUsername() + "-" + Utilities.formatDateToEu(session.getCreationDate()) + ".txt")  );
-            int option = fc.showSaveDialog(this);
-            if (option == JFileChooser.APPROVE_OPTION) {
-                Utilities.createSessionFile(session, fc.getSelectedFile());
-            } 
-        }
+        fc.setSelectedFile( new File(session.getUsername() + "-" + Utilities.formatDateToEu(session.getCreationDate()) + ".txt")  );
+        int option = fc.showSaveDialog(this);
+        if (option == JFileChooser.APPROVE_OPTION) Utilities.createSessionFile(session, fc.getSelectedFile());
     }
     
     private void loadSession() {
@@ -780,11 +769,11 @@ public class CalcView extends javax.swing.JDialog {
     }//GEN-LAST:event_substractBtnMouseExited
 
     private void substractBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_substractBtnActionPerformed
-        String aux = this.jLabel1.getText();
-        if (!aux.contains(" ")) {
-            if (aux.length() > 0 && aux.charAt(aux.length() - 1) != ' ') {
-                aux += " - ";
-                this.jLabel1.setText(aux);
+        String screenContent = this.screenLbl.getText();
+        if (!screenContent.contains(" ")) {
+            if (screenContent.length() > 0 && screenContent.charAt(screenContent.length() - 1) != ' ') {
+                screenContent += " - ";
+                this.screenLbl.setText(screenContent);
             }
         }
     }//GEN-LAST:event_substractBtnActionPerformed
@@ -798,12 +787,11 @@ public class CalcView extends javax.swing.JDialog {
     }//GEN-LAST:event_zeroBtnMouseExited
 
     private void zeroBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zeroBtnActionPerformed
-        String aux = this.jLabel1.getText();
-        if (aux.length() -1 == 0 && aux.charAt(0) == '0') {
-            this.jLabel1.setText("0");
+        String screenContent = this.screenLbl.getText();
+        if (screenContent.equals("ERROR") ||  screenContent.charAt(0) == '0') {
+            this.screenLbl.setText("0");
         } else {
-            aux += 0;
-            this.jLabel1.setText(aux);
+            this.screenLbl.setText(screenContent + 0);
         }
     }//GEN-LAST:event_zeroBtnActionPerformed
 
@@ -816,13 +804,11 @@ public class CalcView extends javax.swing.JDialog {
     }//GEN-LAST:event_threeBtnMouseExited
 
     private void threeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_threeBtnActionPerformed
-        // TODO add your handling code here:
-        String aux = this.jLabel1.getText();
-        if (aux.length() - 1 == 0 && aux.charAt(0) == '0') {
-            this.jLabel1.setText("3");
+        String screenContent = this.screenLbl.getText();
+        if (screenContent.equals("ERROR") ||  screenContent.charAt(0) == '0') {
+            this.screenLbl.setText("3");
         } else {
-            aux += 3;
-            this.jLabel1.setText(aux);
+            this.screenLbl.setText(screenContent + 3);
         }
     }//GEN-LAST:event_threeBtnActionPerformed
 
@@ -835,23 +821,18 @@ public class CalcView extends javax.swing.JDialog {
     }//GEN-LAST:event_equalsBtnMouseExited
 
     private void equalsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_equalsBtnActionPerformed
-        String screen = this.jLabel1.getText();
-        Operation operation;
-        String[] fields;
-
-        if (screen.contains(" ") && (screen.contains("+") ||
-                screen.contains("-") || screen.contains("÷") || screen.contains("x")
-                )) {
-            fields = screen.split(" ");
+        String screenContent = this.screenLbl.getText();
+        String[] fields = screenContent.split(" ");
+        Operation operation = new Operation();
             
             if (fields.length == 3) {
-                operation = new Operation(fields[0], fields[1], fields[2]);
-                this.result = operation.getResult();
+                operation = new Operation(Double.parseDouble(fields[0]), fields[1], Double.parseDouble(fields[2]));
+                String result = Utilities.removeZero(operation.resolve());
             
-                if (this.result == null) {
-                    JOptionPane.showMessageDialog(null, "No es posible dividir entre 0", "ERROR", JOptionPane.ERROR_MESSAGE);
+                if (result == null) {
+                    this.screenLbl.setText("ERROR");
                 } else {
-                    this.jLabel1.setText(result);
+                    this.screenLbl.setText(result);
                 }
             } else {
                 return;
@@ -859,7 +840,6 @@ public class CalcView extends javax.swing.JDialog {
             
             operations.add(operation);
             updateTable();
-        }   
     }//GEN-LAST:event_equalsBtnActionPerformed
 
     private void fourBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fourBtnMouseEntered
@@ -871,12 +851,11 @@ public class CalcView extends javax.swing.JDialog {
     }//GEN-LAST:event_fourBtnMouseExited
 
     private void fourBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fourBtnActionPerformed
-        String aux = this.jLabel1.getText();
-        if (aux.length() -1 == 0 && aux.charAt(0) == '0') {
-            this.jLabel1.setText("4");
+        String screenContent = this.screenLbl.getText();
+        if (screenContent.equals("ERROR") || screenContent.charAt(0) == '0') {
+            this.screenLbl.setText("4");
         } else {
-            aux += 4;
-            this.jLabel1.setText(aux);
+            this.screenLbl.setText(screenContent + 4);
         }
     }//GEN-LAST:event_fourBtnActionPerformed
 
@@ -889,166 +868,17 @@ public class CalcView extends javax.swing.JDialog {
     }//GEN-LAST:event_fiveBtnMouseExited
 
     private void fiveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fiveBtnActionPerformed
-        // TODO add your handling code here:
-        String aux = this.jLabel1.getText();
-        if (aux.length() -1 == 0 && aux.charAt(0) == '0') {
-            this.jLabel1.setText("5");
+        String screenContent = this.screenLbl.getText();
+        if (screenContent.equals("ERROR") || screenContent.charAt(0) == '0') {
+            this.screenLbl.setText("5");
         } else {
-            aux += 5;
-            this.jLabel1.setText(aux);
+            this.screenLbl.setText(screenContent + 5);
         }
     }//GEN-LAST:event_fiveBtnActionPerformed
 
     private void clearBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearBtnActionPerformed
-        this.result = null;
-        this.jLabel1.setText("0");
+        this.screenLbl.setText("0");
     }//GEN-LAST:event_clearBtnActionPerformed
-
-    private void clearBtnKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_clearBtnKeyPressed
-        String screen = this.jLabel1.getText();
-        Operation operation;
-        
-        switch (evt.getKeyChar()) {
-            case '1':
-                if (screen.length() -  1 == 0 && screen.charAt(0) == '0') {
-                    this.jLabel1.setText("1");
-                } else {
-                    this.jLabel1.setText(screen + "1");
-                }
-                break;
-            case '2':
-                if (screen.length() -  1 == 0 && screen.charAt(0) == '0') {
-                    this.jLabel1.setText("2");
-                } else {
-                    this.jLabel1.setText(screen + "2");
-                }
-                break;
-            case '3':
-                if (screen.length() -  1 == 0 && screen.charAt(0) == '0') {
-                    this.jLabel1.setText("3");
-                } else {
-                    this.jLabel1.setText(screen + "3");
-                }
-                break;
-            case '4':
-                if (screen.length() -  1 == 0 && screen.charAt(0) == '0') {
-                    this.jLabel1.setText("4");
-                } else {
-                    this.jLabel1.setText(screen + "4");
-                }
-                break;
-            case '5':
-                if (screen.length() -  1 == 0 && screen.charAt(0) == '0') {
-                    this.jLabel1.setText("5");
-                } else {
-                    this.jLabel1.setText(screen + "5");
-                }
-                break;
-            case '6':
-                if (screen.length() -  1 == 0 && screen.charAt(0) == '0') {
-                    this.jLabel1.setText("6");
-                } else {
-                    this.jLabel1.setText(screen + "6");
-                }
-                break;
-            case '7':
-                if (screen.length() -  1 == 0 && screen.charAt(0) == '0') {
-                    this.jLabel1.setText("7");
-                } else {
-                    this.jLabel1.setText(screen + "7");
-                }
-                break;
-            case '8':
-                if (screen.length() -  1 == 0 && screen.charAt(0) == '0') {
-                    this.jLabel1.setText("8");
-                } else {
-                    this.jLabel1.setText(screen + "8");
-                }
-                break;
-            case '9':
-                if (screen.length() -  1 == 0 && screen.charAt(0) == '0') {
-                    this.jLabel1.setText("9");
-                } else {
-                    this.jLabel1.setText(screen + "9");
-                }
-                break;
-            case '0':
-                if (screen.length() -1 == 0 && screen.charAt(0) == '0') {
-                    this.jLabel1.setText("0");
-                } else {
-                    this.jLabel1.setText(screen += "0");
-                }
-                break;
-            case '+':
-                if (!screen.contains(" ") && screen.charAt(0) != '0') {
-                    if (screen.length() > 0 && screen.charAt(screen.length() - 1) != ' ') {
-                        this.jLabel1.setText(screen += " + ");
-                    }
-                }
-                break;
-            case '-':
-                if (!screen.contains(" ") && screen.charAt(0) != '0') {
-                    if (screen.length() > 0 && screen.charAt(screen.length() - 1) != ' ') {
-                        this.jLabel1.setText(screen += " - ");
-                    }
-                }
-                break;
-            case '/':
-                if (!screen.contains(" ") && screen.charAt(0) != '0') {
-                    if (screen.length() > 0 && screen.charAt(screen.length() - 1) != ' ') {
-                        this.jLabel1.setText(screen += " ÷ ");
-                    }
-                }
-                break;
-            case 'x':
-                if (!screen.contains(" ") && screen.charAt(0) != '0') {
-                    if (screen.length() > 0 && screen.charAt(screen.length() - 1) != ' ') {
-                        this.jLabel1.setText(screen += " x ");
-                    }
-                }
-                break;
-            case '*':
-                if (!screen.contains(" ") && screen.charAt(0) != '0') {
-                    if (screen.length() > 0 && screen.charAt(screen.length() - 1) != ' ') {
-                        this.jLabel1.setText(screen += " x ");
-                    }
-                }
-                break;
-            case '.':
-                if (!screen.contains(".")) {
-                    if (screen.length() - 1 == 0 && screen.charAt(0) == '0') {
-                        this.jLabel1.setText("0.");
-                    } else {
-                        this.jLabel1.setText(screen += ".");
-                    }
-                }
-                break;
-            case 'p':
-                operation = new Operation();
-                if (!screen.contains(" ")) {
-                    if (screen.length() > 0 && screen.charAt(screen.length() - 1) != ' ') {
-                        operation.setX(screen);
-                        operation.setY(null);
-                        operation.setOperator("^");
-                        this.result = operation.getResult();
-                        this.jLabel1.setText(this.result);
-                    }
-                }
-                break;
-            case 's':
-                operation = new Operation();
-                if (!screen.contains(" ")) {
-                    if (screen.length() > 0 && screen.charAt(screen.length() - 1) != ' ') {
-                        operation.setX(screen);
-                        operation.setY(null);
-                        operation.setOperator("s");
-                        this.result = operation.getResult();
-                        this.jLabel1.setText(this.result);
-                    }
-                }
-                break;
-            }
-    }//GEN-LAST:event_clearBtnKeyPressed
 
     private void sixBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sixBtnMouseEntered
         this.sixBtn.setBackground(Color.WHITE.darker());
@@ -1059,26 +889,21 @@ public class CalcView extends javax.swing.JDialog {
     }//GEN-LAST:event_sixBtnMouseExited
 
     private void sixBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sixBtnActionPerformed
-        // TODO add your handling code here:
-        String aux = this.jLabel1.getText();
-        if (aux.length() -1 == 0 && aux.charAt(0) == '0') {
-            this.jLabel1.setText("6");
+        String screenContent = this.screenLbl.getText();
+        if (screenContent.length() -1 == 0 && screenContent.charAt(0) == '0') {
+            this.screenLbl.setText("6");
         } else {
-            aux += 6;
-            this.jLabel1.setText(aux);
+            screenContent += 6;
+            this.screenLbl.setText(screenContent);
         }
     }//GEN-LAST:event_sixBtnActionPerformed
 
     private void sqBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sqBtnActionPerformed
-        Operation operation = new Operation();
-        String aux = this.jLabel1.getText();
-        if (!aux.contains(" ")) {
-            if (aux.length() > 0 && aux.charAt(aux.length() - 1) != ' ') {
-                operation.setX(aux);
-                operation.setOperator("s");
-                operation.setY(null);
-                this.result = operation.getResult();
-                this.jLabel1.setText(this.result);
+        String screenContent = this.screenLbl.getText();
+        Operation operation = operation = new Operation(Double.parseDouble(screenContent), "s", null);
+        if (!screenContent.contains(" ")) {
+            if (screenContent.length() > 0 && screenContent.charAt(screenContent.length() - 1) != ' ') {
+                this.screenLbl.setText(Utilities.removeZero(operation.resolve()));
             }
         }
         
@@ -1095,26 +920,21 @@ public class CalcView extends javax.swing.JDialog {
     }//GEN-LAST:event_multiplyBtnMouseExited
 
     private void multiplyBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_multiplyBtnActionPerformed
-        // TODO add your handling code here:
-        String aux = this.jLabel1.getText();
-        if (!aux.contains(" ")) {
-            if (aux.length() > 0 && aux.charAt(aux.length() - 1) != ' ') {
-                aux += " x ";
-                this.jLabel1.setText(aux);
+        String screenContent = this.screenLbl.getText();
+        if (!screenContent.contains(" ")) {
+            if (screenContent.length() > 0 && screenContent.charAt(screenContent.length() - 1) != ' ') {
+                screenContent += " x ";
+                this.screenLbl.setText(screenContent);
             }
         }
     }//GEN-LAST:event_multiplyBtnActionPerformed
 
     private void powBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_powBtnActionPerformed
-        Operation operation = new Operation();
-        String aux = this.jLabel1.getText();
-        if (!aux.contains(" ")) {
-            if (aux.length() > 0 && aux.charAt(aux.length() - 1) != ' ') {
-                operation.setX(aux);
-                operation.setOperator("^");
-                operation.setY(null);
-                this.result = operation.getResult();
-                this.jLabel1.setText(this.result);
+        String screenContent = this.screenLbl.getText();
+        Operation operation = new Operation(Double.parseDouble(screenContent), "^", null);
+        if (!screenContent.contains(" ")) {
+            if (screenContent.length() > 0 && screenContent.charAt(screenContent.length() - 1) != ' ') {
+                this.screenLbl.setText(Utilities.removeZero(operation.resolve()));
             }
         }
         
@@ -1131,13 +951,11 @@ public class CalcView extends javax.swing.JDialog {
     }//GEN-LAST:event_eightBtnMouseExited
 
     private void eightBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eightBtnActionPerformed
-        // TODO add your handling code here:
-        String aux = this.jLabel1.getText();
-        if (aux.length() -1 == 0 && aux.charAt(0) == '0') {
-            this.jLabel1.setText("8");
+        String screenContent = this.screenLbl.getText();
+        if (screenContent.equals("ERROR") ||  screenContent.charAt(0) == '0') {
+            this.screenLbl.setText("8");
         } else {
-            aux += 8;
-            this.jLabel1.setText(aux);
+            this.screenLbl.setText(screenContent + 8);
         }
     }//GEN-LAST:event_eightBtnActionPerformed
 
@@ -1150,19 +968,11 @@ public class CalcView extends javax.swing.JDialog {
     }//GEN-LAST:event_reciprocalBtnMouseExited
 
     private void reciprocalBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reciprocalBtnActionPerformed
-        Operation operation = new Operation();
-        String aux = this.jLabel1.getText();
-        if (!aux.contains(" ")) {
-            if (aux.length() > 0 && aux.charAt(aux.length() - 1) != ' ') {
-                operation.setX(aux);
-                operation.setOperator("/");
-                operation.setY(null);
-                this.result = operation.getResult();
-                if (this.result == null) {
-                    this.jLabel1.setText("0");
-                } else {
-                    this.jLabel1.setText(this.result);
-                }
+        String screenContent = this.screenLbl.getText();
+        Operation operation = new Operation(Double.parseDouble(screenContent), "/", null);
+        if (!screenContent.contains(" ")) {
+            if (screenContent.length() > 0 && screenContent.charAt(screenContent.length() - 1) != ' ') {
+                this.screenLbl.setText(operation.resolve().toString());
             }
         }
         
@@ -1179,13 +989,12 @@ public class CalcView extends javax.swing.JDialog {
     }//GEN-LAST:event_sevenBtnMouseExited
 
     private void sevenBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sevenBtnActionPerformed
-        // TODO add your handling code here:
-        String aux = this.jLabel1.getText();
-        if (aux.length() -1 == 0 && aux.charAt(0) == '0') {
-            this.jLabel1.setText("7");
+        String screenContent = this.screenLbl.getText();
+        if (screenContent.length() -1 == 0 && screenContent.charAt(0) == '0') {
+            this.screenLbl.setText("7");
         } else {
-            aux += 7;
-            this.jLabel1.setText(aux);
+            screenContent += 7;
+            this.screenLbl.setText(screenContent);
         }
     }//GEN-LAST:event_sevenBtnActionPerformed
 
@@ -1198,12 +1007,11 @@ public class CalcView extends javax.swing.JDialog {
     }//GEN-LAST:event_sumBtnMouseExited
 
     private void sumBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sumBtnActionPerformed
-        // TODO add your handling code here:
-        String aux = this.jLabel1.getText();
-        if (!aux.contains(" ")) {
-            if (aux.length() > 0 && aux.charAt(aux.length() - 1) != ' ') {
-                aux += " + ";
-                this.jLabel1.setText(aux);
+        String screenContent = this.screenLbl.getText();
+        if (!screenContent.contains(" ")) {
+            if (screenContent.length() > 0 && screenContent.charAt(screenContent.length() - 1) != ' ') {
+                screenContent += " + ";
+                this.screenLbl.setText(screenContent);
             }
         }
     }//GEN-LAST:event_sumBtnActionPerformed
@@ -1217,13 +1025,11 @@ public class CalcView extends javax.swing.JDialog {
     }//GEN-LAST:event_nineBtnMouseExited
 
     private void nineBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nineBtnActionPerformed
-        // TODO add your handling code here:
-        String aux = this.jLabel1.getText();
-        if (aux.length() -1 == 0 && aux.charAt(0) == '0') {
-            this.jLabel1.setText("9");
+        String screenContent = this.screenLbl.getText();
+        if (screenContent.equals("ERROR") ||  screenContent.charAt(0) == '0') {
+            this.screenLbl.setText("9");
         } else {
-            aux += 9;
-            this.jLabel1.setText(aux);
+            this.screenLbl.setText(screenContent + 9);
         }
     }//GEN-LAST:event_nineBtnActionPerformed
 
@@ -1236,13 +1042,12 @@ public class CalcView extends javax.swing.JDialog {
     }//GEN-LAST:event_oneBtnMouseExited
 
     private void oneBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_oneBtnActionPerformed
-        // TODO add your handling code here:
-        String aux = this.jLabel1.getText();
-        if (aux.length() -1 == 0 && aux.charAt(0) == '0') {
-            this.jLabel1.setText("1");
+        String screenContent = this.screenLbl.getText();
+        if (screenContent.length() -1 == 0 && screenContent.charAt(0) == '0') {
+            this.screenLbl.setText("1");
         } else {
-            aux += 1;
-            this.jLabel1.setText(aux);
+            screenContent += 1;
+            this.screenLbl.setText(screenContent);
         }
     }//GEN-LAST:event_oneBtnActionPerformed
 
@@ -1255,12 +1060,11 @@ public class CalcView extends javax.swing.JDialog {
     }//GEN-LAST:event_divideBtnMouseExited
 
     private void divideBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_divideBtnActionPerformed
-        // TODO add your handling code here:
-        String aux = this.jLabel1.getText();
-        if (!aux.contains(" ")) {
-            if (aux.length() > 0 && aux.charAt(aux.length() - 1) != ' ') {
-                aux += " ÷ ";
-                this.jLabel1.setText(aux);
+        String screenContent = this.screenLbl.getText();
+        if (!screenContent.contains(" ")) {
+            if (screenContent.length() > 0 && screenContent.charAt(screenContent.length() - 1) != ' ') {
+                screenContent += " ÷ ";
+                this.screenLbl.setText(screenContent);
             }
         }
     }//GEN-LAST:event_divideBtnActionPerformed
@@ -1274,13 +1078,11 @@ public class CalcView extends javax.swing.JDialog {
     }//GEN-LAST:event_twoButtnMouseExited
 
     private void twoButtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_twoButtnActionPerformed
-        // TODO add your handling code here:
-        String aux = this.jLabel1.getText();
-        if (aux.length() -  1 == 0 && aux.charAt(0) == '0') {
-            this.jLabel1.setText("2");
+        String screenContent = this.screenLbl.getText();
+        if (screenContent.equals("ERROR") ||  screenContent.charAt(0) == '0') {
+            this.screenLbl.setText("2");
         } else {
-            aux += 2;
-            this.jLabel1.setText(aux);
+            this.screenLbl.setText(screenContent + 2);
         }
     }//GEN-LAST:event_twoButtnActionPerformed
 
@@ -1293,13 +1095,12 @@ public class CalcView extends javax.swing.JDialog {
     }//GEN-LAST:event_dotBtnMouseExited
 
     private void dotBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dotBtnActionPerformed
-        String aux = this.jLabel1.getText();
-        if (!aux.contains(".")) {
-            if (aux.length() - 1 == 0 && aux.charAt(0) == '0') {
-                this.jLabel1.setText("0.");
+        String screenContent = this.screenLbl.getText();
+        if (!screenContent.contains(".")) {
+            if (screenContent.equals("ERROR") || screenContent.charAt(0) == '0') {
+                this.screenLbl.setText("0.");
             } else {
-                aux += ".";
-                this.jLabel1.setText(aux);
+                this.screenLbl.setText(screenContent + ".");
             }
         }
     }//GEN-LAST:event_dotBtnActionPerformed
@@ -1324,7 +1125,7 @@ public class CalcView extends javax.swing.JDialog {
             } else if (option == JOptionPane.CANCEL_OPTION) {
                 return;
             }
-        }
+        } 
         System.exit(0);
     }//GEN-LAST:event_exitBtnActionPerformed
 
@@ -1400,6 +1201,7 @@ public class CalcView extends javax.swing.JDialog {
       
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem aboutBtn;
+    private javax.swing.JPanel calculatorPane;
     private javax.swing.JButton clearBtn;
     private javax.swing.JLabel creationDateLbl;
     private javax.swing.JButton divideBtn;
@@ -1410,25 +1212,23 @@ public class CalcView extends javax.swing.JDialog {
     private javax.swing.JButton fiveBtn;
     private javax.swing.JButton fourBtn;
     private javax.swing.JMenuItem helpBtn;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JMenuItem loadBtn;
     private javax.swing.JMenuItem logoutBtn;
+    private javax.swing.JMenuBar menuBar;
     private javax.swing.JButton multiplyBtn;
     private javax.swing.JButton nineBtn;
     private javax.swing.JButton oneBtn;
     private javax.swing.JButton powBtn;
     private javax.swing.JButton reciprocalBtn;
     private javax.swing.JMenuItem saveBtn;
+    private javax.swing.JLabel screenLbl;
+    private javax.swing.JPanel screenPane;
     private javax.swing.JLabel sessionCreationDateLbl;
     private javax.swing.JLabel sessionUserLbl;
     private javax.swing.JButton sevenBtn;
@@ -1440,6 +1240,7 @@ public class CalcView extends javax.swing.JDialog {
     private javax.swing.JButton threeBtn;
     private javax.swing.JButton twoButtn;
     private javax.swing.JMenuItem useCaseBtn;
+    private javax.swing.JPanel userDetailsPane;
     private javax.swing.JLabel userTitle;
     private javax.swing.JLabel usernameLbl;
     private javax.swing.JButton zeroBtn;

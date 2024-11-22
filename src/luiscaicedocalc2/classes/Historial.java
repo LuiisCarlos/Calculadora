@@ -32,9 +32,4 @@ public class Historial {
     
     public List<Operation> getOperations() { return this.operations; }
     public void setOperations(List<Operation> operations) { this.operations = operations; }
-
-    @Override
-    public String toString() {
-        return "Session{" + "username=" + username + ", creationDate=" + creationDate + ", type=" + type + ", operations=" + operations + '}';
-    }
 }
