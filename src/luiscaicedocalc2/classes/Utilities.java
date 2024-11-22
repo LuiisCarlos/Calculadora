@@ -88,7 +88,12 @@ public class Utilities {
     }
    
     public static DefaultTableModel initTable(List<Operation> operations) {
-        DefaultTableModel tableModel = new DefaultTableModel();
+        DefaultTableModel tableModel = new DefaultTableModel() {
+            @Override
+           public boolean isCellEditable(int row, int column) {
+               return false;
+           }
+        };
         String[] columns = {"x", "operador", "y", "resultado"};
         tableModel.setColumnIdentifiers(columns);
         for (Operation o : operations) tableModel.addRow(o.toArray());
@@ -96,7 +101,12 @@ public class Utilities {
     }
    
     public static DefaultTableModel initTable() {
-       DefaultTableModel tableModel = new DefaultTableModel();
+       DefaultTableModel tableModel = new DefaultTableModel() {
+           @Override
+           public boolean isCellEditable(int row, int column) {
+               return false;
+           }
+       };
        String[] columns = {"x", "operador", "y", "resultado"};
        tableModel.setColumnIdentifiers(columns);
        return tableModel;
