@@ -4,79 +4,72 @@ package luiscaicedocalc2.classes;
  * @author Luis Carlos Caicedo Giraldo
  */
 public class Operation {
-    private String x;
+    private Double x;
     private String operator;
-    private String y;
-    private String result;
+    private Double y;
+    private Double result;
     
     public Operation() {}
     
-    public Operation(String x, String operator, String y) {
+    public Operation(Double x, String operator, Double y) {
         this.x = x;
         this.operator = operator;
         this.y = y;
     }
 
-    public Operation(String x, String operator, String y, String result) {
+    public Operation(Double x, String operator, Double y, Double result) {
         this.x = x;
         this.operator = operator;
         this.y = y;
         this.result = result;
     }
 
-    public String getX() { return this.x;}
-    public void setX(String x) {this.x = x; }
+    public Double getX() { return this.x;}
+    public void setX(Double x) {this.x = x; }
     
-    public String getY() { return this.y; }
-    public void setY(String y) { this.y = y; }
+    public Double getY() { return this.y; }
+    public void setY(Double y) { this.y = y; }
     
     public String getOperator() { return this.operator; }
     public void setOperator(String operator) { this.operator = operator; }
-
-    public String getResult() {
-        String number = "";
-        switch (operator) {
-            case "+" -> number += (Double.parseDouble(x) + Double.parseDouble(y));
-            case "-" -> number += (Double.parseDouble(x) - Double.parseDouble(y));
-            case "x" -> number += (Double.parseDouble(x) * Double.parseDouble(y));
-            case "÷" -> {
-                if (y.equals("0")) {
-                    return null; 
-                } else {
-                    number += (Double.parseDouble(x) / Double.parseDouble(y));
-                    this.y = "÷";
-                }
+    
+    public Double resolve() {
+        try {
+            switch (operator) {
+                case "+":
+                    this.result = x + y; break;
+                case "-":
+                    this.result = x - y; break;
+                case "x":
+                    this.result = x * y; break;
+                case "÷":
+                    if (y == 0)
+                        this.result = null; 
+                    else
+                        this.result = x / y;
+                    break;
+                case "^": 
+                    this.result  = Math.pow(x, 2);
+                    break;
+                case "sq":
+                    this.result  = Math.sqrt(x);
+                    break;
+                case "/":
+                    if (x.equals(0)) 
+                        this.result = null; 
+                    else 
+                        this.result  = 1 / x;
+                    break;
+                default :
+                    this.result = null; 
             }
-            case "^" -> {
-                number = String.valueOf( Math.pow(Double.parseDouble(x), 2) );
-                this.y = "";
-            }
-            case "s" -> {
-                number = String.valueOf( Math.sqrt(Double.parseDouble(x)) );
-                this.y = "";
-            }
-            case "/" -> {
-                if (x.equals("0")) {
-                    return null; 
-                } else {
-                    number = String.valueOf(1 / Double.parseDouble(x));
-                }
-            }
-            default -> {
-                return "ERROR";
-            }
+        } catch (Exception e) {
+            this.result = null;
         }
         
-        if (number.charAt(number.length() - 1) == '0') {
-            if (number.charAt(number.length() - 2) == '.') {
-                double aux1 = Double.parseDouble(number);
-                number = String.valueOf((int) aux1);
-            }
-        }
-        this.result = number;
         return this.result;
     }
-
+    
     @Override
     public String toString() {
         return this.x + ","  + this.operator + "," + this.y +  "," + this.result;
@@ -85,4 +78,5 @@ public class Operation {
     public String[] toArray() {
         return new String[]{"" + this.x, "" + this.operator, "" + this.y,  "" + this.result};
     }
+   
 }
